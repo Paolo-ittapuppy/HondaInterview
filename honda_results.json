@@ -1,0 +1,43 @@
+[
+  {
+    "model": "2026 Civic Sport Hybrid Sedan",
+    "scenario": "Standard (Good Credit, 15k miles/yr)",
+    "params": {
+      "label": "Standard (Good Credit, 15k miles/yr)",
+      "zip": "90250",
+      "leaseTerm": 36,
+      "financeTerm": 60,
+      "annualMileage": 15000,
+      "apr": 5.49,
+      "downPayment": 3740,
+      "financeDownPayment": 0,
+      "fico": 740,
+      "financeFico": 740,
+      "leaseOrFinance": 0
+    },
+    "extracted": {
+      "leaseData": {
+        "MonthlyPayment": 315.17,
+        "TotalDueAtSigning": 5042.86,
+        "Term": 36,
+        "MoneyFactor": 0.00203,
+        "AnnualMileage": 15000,
+        "DownPayment": 3740.0,
+        "AcquisitionFee": 595.0,
+        "FirstMonthPayment": 315.17,
+        "MonthlySalesTax": 29.96,
+        "UpfrontSalesTax": 0.0
+      },
+      "financeData": {
+        "MonthlyPayment": 645.5,
+        "TotalDueAtSigning": 0.0,
+        "AmountFinanced": 33801.95,
+        "Term": 60,
+        "Apr": 5.49
+      },
+      "modelData": {
+        "MSRP": 29395.0
+      }
+    }
+  }
+]
