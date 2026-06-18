@@ -7,191 +7,69 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --bg: #ffffff;
-    --bg-secondary: #f5f5f3;
-    --bg-tertiary: #eeede9;
-    --text: #1a1a18;
-    --text-muted: #6b6b67;
-    --text-faint: #9b9b97;
-    --border: rgba(0,0,0,0.1);
-    --border-mid: rgba(0,0,0,0.18);
-    --blue: #378ADD;
-    --blue-bg: #E6F1FB;
-    --blue-text: #0C447C;
-    --teal: #1D9E75;
-    --teal-bg: #E1F5EE;
-    --teal-text: #085041;
-    --amber-bg: #FAEEDA;
-    --amber-text: #633806;
-    --red: #E24B4A;
-    --green: #0F6E56;
-    --radius: 10px;
-    --radius-sm: 6px;
+    --bg: #ffffff; --bg-secondary: #f5f5f3; --bg-tertiary: #eeede9;
+    --text: #1a1a18; --text-muted: #6b6b67; --text-faint: #9b9b97;
+    --border: rgba(0,0,0,0.1); --border-mid: rgba(0,0,0,0.18);
+    --blue: #378ADD; --blue-bg: #E6F1FB; --blue-text: #0C447C;
+    --teal: #1D9E75; --teal-bg: #E1F5EE; --teal-text: #085041;
+    --amber-bg: #FAEEDA; --amber-text: #633806;
+    --red: #E24B4A; --green: #0F6E56;
+    --radius: 10px; --radius-sm: 6px;
   }
-
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #1a1a18;
-      --bg-secondary: #242422;
-      --bg-tertiary: #2e2e2b;
-      --text: #f0efea;
-      --text-muted: #9b9b97;
-      --text-faint: #6b6b67;
-      --border: rgba(255,255,255,0.1);
-      --border-mid: rgba(255,255,255,0.18);
-      --blue-bg: #0C447C;
-      --blue-text: #B5D4F4;
-      --teal-bg: #085041;
-      --teal-text: #9FE1CB;
-      --amber-bg: #633806;
-      --amber-text: #FAC775;
+      --bg: #1a1a18; --bg-secondary: #242422; --bg-tertiary: #2e2e2b;
+      --text: #f0efea; --text-muted: #9b9b97; --text-faint: #6b6b67;
+      --border: rgba(255,255,255,0.1); --border-mid: rgba(255,255,255,0.18);
+      --blue-bg: #0C447C; --blue-text: #B5D4F4;
+      --teal-bg: #085041; --teal-text: #9FE1CB;
+      --amber-bg: #633806; --amber-text: #FAC775;
     }
   }
-
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background: var(--bg-tertiary);
-    color: var(--text);
-    font-size: 14px;
-    line-height: 1.6;
-    min-height: 100vh;
-  }
-
-  header {
-    background: var(--bg);
-    border-bottom: 0.5px solid var(--border);
-    padding: 0 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 56px;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-  }
-
-  .header-left { display: flex; align-items: center; gap: 12px; }
-  .header-logo {
-    width: 28px; height: 28px;
-    background: var(--text);
-    border-radius: 6px;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .header-logo svg { width: 16px; height: 16px; fill: var(--bg); }
-  .header-title { font-size: 14px; font-weight: 600; color: var(--text); }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg-tertiary); color: var(--text); font-size: 14px; line-height: 1.6; min-height: 100vh; }
+  header { background: var(--bg); border-bottom: 0.5px solid var(--border); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 56px; position: sticky; top: 0; z-index: 10; gap: 1rem; flex-wrap: wrap; }
+  .header-left { display: flex; align-items: center; gap: 10px; }
+  .header-title { font-size: 14px; font-weight: 600; }
   .header-sub { font-size: 12px; color: var(--text-muted); }
-
-  .header-controls { display: flex; gap: 10px; align-items: center; }
+  .header-controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
   .header-controls label { font-size: 12px; color: var(--text-muted); }
-  select {
-    font-size: 13px;
-    padding: 5px 10px;
-    border-radius: var(--radius-sm);
-    border: 0.5px solid var(--border-mid);
-    background: var(--bg-secondary);
-    color: var(--text);
-    cursor: pointer;
-    outline: none;
-  }
+  select { font-size: 13px; padding: 5px 10px; border-radius: var(--radius-sm); border: 0.5px solid var(--border-mid); background: var(--bg-secondary); color: var(--text); cursor: pointer; outline: none; }
   select:focus { border-color: var(--blue); }
-
   main { max-width: 960px; margin: 0 auto; padding: 2rem 1.5rem; }
-
-  .verdict-bar {
-    background: var(--bg);
-    border: 0.5px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1.25rem 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1.5rem;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-  .verdict-left { display: flex; align-items: baseline; gap: 10px; }
-  .verdict-label { font-size: 13px; color: var(--text-muted); }
+  .loading { text-align: center; padding: 4rem 2rem; color: var(--text-muted); font-size: 14px; }
+  .error { background: #FCEBEB; color: #791F1F; border-radius: var(--radius); padding: 1rem 1.25rem; font-size: 13px; }
+  .verdict-bar { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 1.25rem 1.5rem; display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
   .verdict-winner { font-size: 22px; font-weight: 700; color: var(--green); }
+  .verdict-label { font-size: 13px; color: var(--text-muted); }
   .verdict-saves { font-size: 13px; color: var(--text-muted); }
   .verdict-saves strong { color: var(--green); font-weight: 600; }
-  .verdict-right { display: flex; gap: 2rem; }
-  .verdict-stat { text-align: right; }
+  .verdict-right { display: flex; gap: 2rem; flex-wrap: wrap; }
   .verdict-stat-label { font-size: 11px; color: var(--text-faint); text-transform: uppercase; letter-spacing: .04em; }
   .verdict-stat-val { font-size: 16px; font-weight: 600; }
-
   .grid4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin-bottom: 1.25rem; }
   .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; margin-bottom: 1.25rem; }
-
-  .metric {
-    background: var(--bg);
-    border: 0.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 12px 14px;
-  }
+  .metric { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-sm); padding: 12px 14px; }
   .metric-label { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; text-transform: uppercase; letter-spacing: .03em; }
   .metric-value { font-size: 20px; font-weight: 600; }
   .metric-sub { font-size: 11px; color: var(--text-faint); margin-top: 2px; }
-
-  .card {
-    background: var(--bg);
-    border: 0.5px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1.1rem 1.25rem;
-    margin-bottom: 1.25rem;
-  }
+  .card { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 1.1rem 1.25rem; margin-bottom: 1.25rem; }
   .card.winner { border: 1.5px solid var(--teal); }
-  .card-title {
-    font-size: 13px;
-    font-weight: 600;
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex-wrap: wrap;
-  }
-
-  .badge {
-    font-size: 10px;
-    padding: 2px 7px;
-    border-radius: 4px;
-    font-weight: 500;
-  }
+  .card-title { font-size: 13px; font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .badge { font-size: 10px; padding: 2px 7px; border-radius: 4px; font-weight: 500; }
   .badge-blue { background: var(--blue-bg); color: var(--blue-text); }
   .badge-amber { background: var(--amber-bg); color: var(--amber-text); }
   .badge-teal { background: var(--teal-bg); color: var(--teal-text); }
-
-  .row {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    padding: 5px 0;
-    border-bottom: 0.5px solid var(--border);
-    font-size: 12px;
-    gap: 8px;
-  }
+  .row { display: flex; justify-content: space-between; align-items: baseline; padding: 5px 0; border-bottom: 0.5px solid var(--border); font-size: 12px; gap: 8px; }
   .row:last-child { border-bottom: none; }
   .row-label { color: var(--text-muted); }
   .row-val { font-weight: 500; text-align: right; }
-
-  .section-label {
-    font-size: 10px;
-    font-weight: 600;
-    color: var(--text-faint);
-    text-transform: uppercase;
-    letter-spacing: .05em;
-    margin: 10px 0 6px;
-  }
+  .section-label { font-size: 10px; font-weight: 600; color: var(--text-faint); text-transform: uppercase; letter-spacing: .05em; margin: 10px 0 6px; }
   .divider { height: 0.5px; background: var(--border); margin: 10px 0; }
-
   .chart-wrap { position: relative; width: 100%; height: 260px; }
-
   .legend { display: flex; gap: 18px; margin-bottom: 14px; font-size: 12px; color: var(--text-muted); flex-wrap: wrap; }
   .legend-item { display: flex; align-items: center; gap: 6px; }
   .legend-line { width: 20px; height: 2px; border-radius: 1px; }
-  .legend-dashed { width: 20px; border-top: 2px dashed var(--teal); }
-
   table { width: 100%; border-collapse: collapse; font-size: 12px; table-layout: fixed; }
   thead tr { border-bottom: 0.5px solid var(--border-mid); }
   th { text-align: left; padding: 6px 8px; color: var(--text-muted); font-weight: 500; font-size: 11px; text-transform: uppercase; letter-spacing: .03em; }
@@ -203,33 +81,14 @@
   .td-green { color: var(--green); font-weight: 600; }
   .td-red { color: var(--red); font-weight: 600; }
   .td-sub { font-size: 10px; color: var(--text-faint); font-weight: 400; }
-
   .note { font-size: 11px; color: var(--text-faint); margin-top: 8px; }
-
-  footer {
-    text-align: center;
-    padding: 2rem;
-    font-size: 11px;
-    color: var(--text-faint);
-    border-top: 0.5px solid var(--border);
-    margin-top: 1rem;
-  }
-
-  @media (max-width: 600px) {
-    header { padding: 0 1rem; flex-wrap: wrap; height: auto; padding: 10px 1rem; gap: 8px; }
-    main { padding: 1rem; }
-    .verdict-bar { flex-direction: column; }
-    .verdict-right { justify-content: flex-start; }
-  }
+  footer { text-align: center; padding: 2rem; font-size: 11px; color: var(--text-faint); border-top: 0.5px solid var(--border); margin-top: 1rem; }
+  @media (max-width: 600px) { header { height: auto; padding: 10px 1rem; } main { padding: 1rem; } }
 </style>
 </head>
 <body>
-
 <header>
   <div class="header-left">
-    <div class="header-logo">
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-    </div>
     <div>
       <div class="header-title">Honda Lease vs Finance</div>
       <div class="header-sub">6-year cost analysis · ZIP 90250</div>
@@ -241,191 +100,169 @@
   </div>
 </header>
 
-<main id="main"></main>
+<main id="main"><div class="loading">Loading data…</div></main>
 
-<footer>
-  Data pulled live from Honda API · Lease cycle 2 projected at 4% MSRP inflation · Resale estimated at 40% of MSRP at year 6 · This is not financial advice.
-</footer>
+<footer>Data pulled live from Honda API · Lease cycle 2 projected at 4% MSRP inflation · Resale estimated at 40% of MSRP at year 6 · Not financial advice.</footer>
 
 <script>
-const LEASE = [
-  {Model:"2026 Civic Sport Hybrid Sedan",Scenario:"no down payment",MSRP:29395,TaxRate:10.5,ResidualValue:19312.12,ResidualPct:0.657,L1_Monthly:315.17,L1_PreTax:285.21,L1_Signing:5042.86,L1_Term:36,L1_MF:0.00203,L1_Miles:15000,L1_Down:3740,L1_Acq:595,L1_FirstMo:315.17,L1_MonthTax:29.96,L1_UpfrontTax:0,L1_3yr:16388.98,L2_MSRP:33065.38,L2_Residual:21723.95,L2_Monthly:367.43,L2_Signing:4702.43,L2_3yr:17929.91,Lease6yr:34318.89},
-  {Model:"2026 Civic Sport Hybrid Sedan",Scenario:"with down payment",MSRP:29395,TaxRate:10.5,ResidualValue:19307.13,ResidualPct:0.6568,L1_Monthly:356.14,L1_PreTax:322.3,L1_Signing:3713.64,L1_Term:36,L1_MF:0.00203,L1_Miles:15000,L1_Down:2500,L1_Acq:595,L1_FirstMo:356.14,L1_MonthTax:33.84,L1_UpfrontTax:0,L1_3yr:16534.68,L2_MSRP:33065.38,L2_Residual:21717.34,L2_Monthly:408.46,L2_Signing:3503.46,L2_3yr:18208.02,Lease6yr:34742.7},
-  {Model:"2026 Civic Sport Hybrid Sedan",Scenario:"with bigger down payment",MSRP:29395,TaxRate:10.5,ResidualValue:19316.87,ResidualPct:0.6571,L1_Monthly:273.53,L1_PreTax:247.53,L1_Signing:6393.52,L1_Term:36,L1_MF:0.00203,L1_Miles:15000,L1_Down:5000,L1_Acq:595,L1_FirstMo:273.53,L1_MonthTax:26,L1_UpfrontTax:0,L1_3yr:16240.6,L2_MSRP:33065.38,L2_Residual:21727.26,L2_Monthly:325.84,L2_Signing:5920.84,L2_3yr:17651.08,Lease6yr:33891.68},
-  {Model:"2026 Ridgeline Sport",Scenario:"no down payment",MSRP:45995,TaxRate:10.5,ResidualValue:27695.99,ResidualPct:0.6022,L1_Monthly:575.85,L1_PreTax:521.12,L1_Signing:5303.54,L1_Term:36,L1_MF:0.00142,L1_Miles:15000,L1_Down:3740,L1_Acq:595,L1_FirstMo:575.85,L1_MonthTax:54.73,L1_UpfrontTax:0,L1_3yr:26034.14,L2_MSRP:51738.12,L2_Residual:31156.7,L2_Monthly:660.34,L2_Signing:4995.34,L2_3yr:28767.58,Lease6yr:54801.72},
-  {Model:"2026 Ridgeline Sport",Scenario:"with down payment",MSRP:45995,TaxRate:10.5,ResidualValue:27691.26,ResidualPct:0.602,L1_Monthly:615.99,L1_PreTax:557.45,L1_Signing:3973.48,L1_Term:36,L1_MF:0.00142,L1_Miles:15000,L1_Down:2500,L1_Acq:595,L1_FirstMo:615.99,L1_MonthTax:58.54,L1_UpfrontTax:0,L1_3yr:26149.12,L2_MSRP:51738.12,L2_Residual:31146.35,L2_Monthly:700.64,L2_Signing:3795.64,L2_3yr:29018.68,Lease6yr:55167.8},
-  {Model:"2026 Ridgeline Sport",Scenario:"with bigger down payment",MSRP:45995,TaxRate:10.5,ResidualValue:27700.95,ResidualPct:0.6023,L1_Monthly:535.04,L1_PreTax:484.2,L1_Signing:6655.04,L1_Term:36,L1_MF:0.00142,L1_Miles:15000,L1_Down:5000,L1_Acq:595,L1_FirstMo:535.04,L1_MonthTax:50.84,L1_UpfrontTax:0,L1_3yr:25916.48,L2_MSRP:51738.12,L2_Residual:31161.87,L2_Monthly:619.53,L2_Signing:6214.53,L2_3yr:28517.61,Lease6yr:54434.09},
-];
-
-const FINANCE = [
-  {Model:"2026 Civic Sport Hybrid Sedan",Scenario:"no down payment",MSRP:29395,Monthly:645.5,Signing:0,AmtFinanced:33801.95,Term:60,APR:5.49,Gross:38730,Resale:11758,Net:26972},
-  {Model:"2026 Civic Sport Hybrid Sedan",Scenario:"with down payment",MSRP:29395,Monthly:597.75,Signing:2500,AmtFinanced:31301.95,Term:60,APR:5.49,Gross:38365,Resale:11758,Net:26607},
-  {Model:"2026 Civic Sport Hybrid Sedan",Scenario:"with bigger down payment",MSRP:29395,Monthly:550.01,Signing:5000,AmtFinanced:28801.95,Term:60,APR:5.49,Gross:38000.6,Resale:11758,Net:26242.6},
-  {Model:"2026 Ridgeline Sport",Scenario:"no down payment",MSRP:45995,Monthly:1002.11,Signing:0,AmtFinanced:52476.45,Term:60,APR:5.49,Gross:60126.6,Resale:18398,Net:41728.6},
-  {Model:"2026 Ridgeline Sport",Scenario:"with down payment",MSRP:45995,Monthly:954.37,Signing:2500,AmtFinanced:49976.45,Term:60,APR:5.49,Gross:59762.2,Resale:18398,Net:41364.2},
-  {Model:"2026 Ridgeline Sport",Scenario:"with bigger down payment",MSRP:45995,Monthly:906.63,Signing:5000,AmtFinanced:47476.45,Term:60,APR:5.49,Gross:59397.8,Resale:18398,Net:40999.8},
-];
-
-const SCHEDULE = [
-  {Model:"2026 Civic Sport Hybrid Sedan",Scenario:"no down payment",rows:[{y:1,lmo:315.17,lcum:8824.9,fmo:645.5,fcum:7746,diff:1078.9},{y:2,lmo:315.17,lcum:12606.94,fmo:645.5,fcum:15492,diff:-2885.06},{y:3,lmo:315.17,lcum:16388.98,fmo:645.5,fcum:23238,diff:-6849.02},{y:4,lmo:367.43,lcum:25500.57,fmo:645.5,fcum:30984,diff:-5483.43},{y:5,lmo:367.43,lcum:29909.73,fmo:645.5,fcum:38730,diff:-8820.27},{y:6,lmo:367.43,lcum:34318.89,fmo:0,fcum:38730,diff:-4411.11}]},
-  {Model:"2026 Civic Sport Hybrid Sedan",Scenario:"with down payment",rows:[{y:1,lmo:356.14,lcum:7987.32,fmo:597.75,fcum:9673,diff:-1685.68},{y:2,lmo:356.14,lcum:12261,fmo:597.75,fcum:16846,diff:-4585},{y:3,lmo:356.14,lcum:16534.68,fmo:597.75,fcum:24019,diff:-7484.32},{y:4,lmo:408.46,lcum:24939.66,fmo:597.75,fcum:31192,diff:-6252.34},{y:5,lmo:408.46,lcum:29841.18,fmo:597.75,fcum:38365,diff:-8523.82},{y:6,lmo:408.46,lcum:34742.7,fmo:0,fcum:38365,diff:-3622.3}]},
-  {Model:"2026 Civic Sport Hybrid Sedan",Scenario:"with bigger down payment",rows:[{y:1,lmo:273.53,lcum:9675.88,fmo:550.01,fcum:11600.12,diff:-1924.24},{y:2,lmo:273.53,lcum:12958.24,fmo:550.01,fcum:18200.24,diff:-5242},{y:3,lmo:273.53,lcum:16240.6,fmo:550.01,fcum:24800.36,diff:-8559.76},{y:4,lmo:325.84,lcum:26071.52,fmo:550.01,fcum:31400.48,diff:-5328.96},{y:5,lmo:325.84,lcum:29981.6,fmo:550.01,fcum:38000.6,diff:-8019},{y:6,lmo:325.84,lcum:33891.68,fmo:0,fcum:38000.6,diff:-4108.92}]},
-  {Model:"2026 Ridgeline Sport",Scenario:"no down payment",rows:[{y:1,lmo:575.85,lcum:12213.74,fmo:1002.11,fcum:12025.32,diff:188.42},{y:2,lmo:575.85,lcum:19123.94,fmo:1002.11,fcum:24050.64,diff:-4926.7},{y:3,lmo:575.85,lcum:26034.14,fmo:1002.11,fcum:36075.96,diff:-10041.82},{y:4,lmo:660.34,lcum:38953.56,fmo:1002.11,fcum:48101.28,diff:-9147.72},{y:5,lmo:660.34,lcum:46877.64,fmo:1002.11,fcum:60126.6,diff:-13248.96},{y:6,lmo:660.34,lcum:54801.72,fmo:0,fcum:60126.6,diff:-5324.88}]},
-  {Model:"2026 Ridgeline Sport",Scenario:"with down payment",rows:[{y:1,lmo:615.99,lcum:11365.36,fmo:954.37,fcum:13952.44,diff:-2587.08},{y:2,lmo:615.99,lcum:18757.24,fmo:954.37,fcum:25404.88,diff:-6647.64},{y:3,lmo:615.99,lcum:26149.12,fmo:954.37,fcum:36857.32,diff:-10708.2},{y:4,lmo:700.64,lcum:38352.44,fmo:954.37,fcum:48309.76,diff:-9957.32},{y:5,lmo:700.64,lcum:46760.12,fmo:954.37,fcum:59762.2,diff:-13002.08},{y:6,lmo:700.64,lcum:55167.8,fmo:0,fcum:59762.2,diff:-4594.4}]},
-  {Model:"2026 Ridgeline Sport",Scenario:"with bigger down payment",rows:[{y:1,lmo:535.04,lcum:13075.52,fmo:906.63,fcum:15879.56,diff:-2804.04},{y:2,lmo:535.04,lcum:19496,fmo:906.63,fcum:26759.12,diff:-7263.12},{y:3,lmo:535.04,lcum:25916.48,fmo:906.63,fcum:37638.68,diff:-11722.2},{y:4,lmo:619.53,lcum:39565.37,fmo:906.63,fcum:48518.24,diff:-8952.87},{y:5,lmo:619.53,lcum:46999.73,fmo:906.63,fcum:59397.8,diff:-12398.07},{y:6,lmo:619.53,lcum:54434.09,fmo:0,fcum:59397.8,diff:-4963.71}]},
-];
-
 const $ = v => '$' + Math.round(Math.abs(v)).toLocaleString();
 const $2 = v => '$' + Number(v).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 const pct = v => (v * 100).toFixed(2) + '%';
 
-const models = [...new Set(LEASE.map(r => r.Model))];
-const selModel = document.getElementById('sel-model');
-const selScenario = document.getElementById('sel-scenario');
+function parseCSV(text) {
+  const lines = text.trim().split('\n');
+  const headers = lines[0].split(',').map(h => h.trim().replace(/\r/g, ''));
+  return lines.slice(1).map(line => {
+    const vals = [];
+    let cur = '', inQuote = false;
+    for (const ch of line) {
+      if (ch === '"') { inQuote = !inQuote; }
+      else if (ch === ',' && !inQuote) { vals.push(cur.trim()); cur = ''; }
+      else { cur += ch; }
+    }
+    vals.push(cur.trim().replace(/\r/g, ''));
+    const obj = {};
+    headers.forEach((h, i) => {
+      const v = vals[i] ?? '';
+      obj[h] = isNaN(v) || v === '' ? v : parseFloat(v);
+    });
+    return obj;
+  });
+}
 
-models.forEach(m => {
-  const o = document.createElement('option');
-  o.value = m; o.textContent = m;
-  selModel.appendChild(o);
-});
+async function loadCSVs() {
+  const [leaseText, financeText, schedText] = await Promise.all([
+    fetch('lease_data.csv').then(r => r.text()),
+    fetch('finance_data.csv').then(r => r.text()),
+    fetch('yearly_schedule.csv').then(r => r.text()),
+  ]);
+  return {
+    lease: parseCSV(leaseText),
+    finance: parseCSV(financeText),
+    schedule: parseCSV(schedText),
+  };
+}
+
+let DATA = null;
+let chartInst = null;
+
+function populateSelectors() {
+  const selModel = document.getElementById('sel-model');
+  const selScenario = document.getElementById('sel-scenario');
+  const models = [...new Set(DATA.lease.map(r => r.Model))];
+  selModel.innerHTML = '';
+  models.forEach(m => { const o = document.createElement('option'); o.value = m; o.textContent = m; selModel.appendChild(o); });
+  populateScenarios(models[0]);
+  selModel.addEventListener('change', () => { populateScenarios(selModel.value); render(); });
+  selScenario.addEventListener('change', render);
+}
 
 function populateScenarios(model) {
+  const selScenario = document.getElementById('sel-scenario');
   selScenario.innerHTML = '';
-  LEASE.filter(r => r.Model === model).forEach(r => {
-    const o = document.createElement('option');
-    o.value = r.Scenario; o.textContent = r.Scenario;
+  DATA.lease.filter(r => r.Model === model).forEach(r => {
+    const o = document.createElement('option'); o.value = r.Scenario; o.textContent = r.Scenario;
     selScenario.appendChild(o);
   });
 }
-populateScenarios(models[0]);
-
-let chartInst = null;
 
 function render() {
-  const model = selModel.value;
-  const scenario = selScenario.value;
-  const L = LEASE.find(r => r.Model === model && r.Scenario === scenario);
-  const F = FINANCE.find(r => r.Model === model && r.Scenario === scenario);
-  const S = SCHEDULE.find(r => r.Model === model && r.Scenario === scenario);
-  if (!L || !F || !S) return;
+  const model = document.getElementById('sel-model').value;
+  const scenario = document.getElementById('sel-scenario').value;
+  const L = DATA.lease.find(r => r.Model === model && r.Scenario === scenario);
+  const F = DATA.finance.find(r => r.Model === model && r.Scenario === scenario);
+  const sRows = DATA.schedule.filter(r => r.Model === model && r.Scenario === scenario).sort((a,b) => a.Year - b.Year);
+  if (!L || !F || !sRows.length) return;
 
-  const finWins = F.Net < L.Lease6yr;
-  const savings = Math.abs(L.Lease6yr - F.Net);
-  const leaseAPR = (L.L1_MF * 2400).toFixed(2);
+  const finWins = F.F_NetTotal < L.Lease_6YrTotal;
+  const savings = Math.abs(L.Lease_6YrTotal - F.F_NetTotal);
+  const leaseAPR = (L.L1_MoneyFactor * 2400).toFixed(2);
+  const aprDiff = (F.F_APR - parseFloat(leaseAPR)).toFixed(2);
 
   document.getElementById('main').innerHTML = `
     <div class="verdict-bar">
-      <div class="verdict-left">
-        <div>
-          <div class="verdict-label">Lower 6-year cost</div>
-          <div class="verdict-winner">${finWins ? 'Finance' : 'Lease'}</div>
-        </div>
+      <div>
+        <div class="verdict-label">Lower 6-year cost</div>
+        <div class="verdict-winner">${finWins ? 'Finance' : 'Lease'}</div>
         <div class="verdict-saves">saves <strong>${$(savings)}</strong> vs ${finWins ? 'leasing' : 'financing'}</div>
       </div>
       <div class="verdict-right">
-        <div class="verdict-stat">
+        <div>
           <div class="verdict-stat-label">Lease 6yr total</div>
-          <div class="verdict-stat-val">${$(L.Lease6yr)}</div>
+          <div class="verdict-stat-val">${$(L.Lease_6YrTotal)}</div>
         </div>
-        <div class="verdict-stat">
+        <div>
           <div class="verdict-stat-label">Finance net</div>
-          <div class="verdict-stat-val">${$(F.Net)}</div>
+          <div class="verdict-stat-val">${$(F.F_NetTotal)}</div>
         </div>
-        <div class="verdict-stat">
+        <div>
           <div class="verdict-stat-label">Finance gross</div>
-          <div class="verdict-stat-val">${$(F.Gross)}</div>
+          <div class="verdict-stat-val">${$(F.F_GrossTotal)}</div>
         </div>
       </div>
     </div>
 
     <div class="grid4">
-      <div class="metric">
-        <div class="metric-label">MSRP</div>
-        <div class="metric-value">${$(L.MSRP)}</div>
-      </div>
-      <div class="metric">
-        <div class="metric-label">Residual value</div>
-        <div class="metric-value">${$(L.ResidualValue)}</div>
-        <div class="metric-sub">${pct(L.ResidualPct)} of MSRP</div>
-      </div>
-      <div class="metric">
-        <div class="metric-label">Money factor</div>
-        <div class="metric-value">${L.L1_MF.toFixed(5)}</div>
-        <div class="metric-sub">${leaseAPR}% APR equiv.</div>
-      </div>
-      <div class="metric">
-        <div class="metric-label">Finance APR</div>
-        <div class="metric-value">${F.APR}%</div>
-        <div class="metric-sub">${(F.APR - parseFloat(leaseAPR)) > 0 ? '+' : ''}${(F.APR - parseFloat(leaseAPR)).toFixed(2)}% vs lease</div>
-      </div>
+      <div class="metric"><div class="metric-label">MSRP</div><div class="metric-value">${$(L.MSRP)}</div></div>
+      <div class="metric"><div class="metric-label">Residual value</div><div class="metric-value">${$(L.ResidualValue)}</div><div class="metric-sub">${pct(L.ResidualPct)} of MSRP</div></div>
+      <div class="metric"><div class="metric-label">Money factor</div><div class="metric-value">${L.L1_MoneyFactor.toFixed(5)}</div><div class="metric-sub">${leaseAPR}% APR equiv.</div></div>
+      <div class="metric"><div class="metric-label">Finance APR</div><div class="metric-value">${F.F_APR}%</div><div class="metric-sub">${aprDiff > 0 ? '+' : ''}${aprDiff}% vs lease MF</div></div>
     </div>
 
     <div class="grid2">
       <div class="card">
-        <div class="card-title">
-          Lease cycle 1
-          <span class="badge badge-blue">Months 1–36</span>
-        </div>
-        <div class="row"><span class="row-label">Monthly payment</span><span class="row-val">${$2(L.L1_Monthly)}</span></div>
-        <div class="row"><span class="row-label">Pre-tax monthly</span><span class="row-val">${$2(L.L1_PreTax)}</span></div>
-        <div class="row"><span class="row-label">Annual mileage</span><span class="row-val">${L.L1_Miles.toLocaleString()} mi</span></div>
-        <div class="row"><span class="row-label">Money factor</span><span class="row-val">${L.L1_MF.toFixed(5)}</span></div>
+        <div class="card-title">Lease cycle 1 <span class="badge badge-blue">Months 1–36</span></div>
+        <div class="row"><span class="row-label">Monthly payment</span><span class="row-val">${$2(L.L1_MonthlyPayment)}</span></div>
+        <div class="row"><span class="row-label">Pre-tax monthly</span><span class="row-val">${$2(L.L1_PreTaxMonthly)}</span></div>
+        <div class="row"><span class="row-label">Annual mileage</span><span class="row-val">${L.L1_AnnualMileage.toLocaleString()} mi</span></div>
+        <div class="row"><span class="row-label">Money factor</span><span class="row-val">${L.L1_MoneyFactor.toFixed(5)}</span></div>
         <div class="divider"></div>
-        <div class="section-label">Due at signing — ${$2(L.L1_Signing)}</div>
-        <div class="row"><span class="row-label">Down payment</span><span class="row-val">${$2(L.L1_Down)}</span></div>
-        <div class="row"><span class="row-label">Acquisition fee</span><span class="row-val">${$2(L.L1_Acq)}</span></div>
-        <div class="row"><span class="row-label">First month</span><span class="row-val">${$2(L.L1_FirstMo)}</span></div>
-        <div class="row"><span class="row-label">Monthly sales tax</span><span class="row-val">${$2(L.L1_MonthTax)}/mo</span></div>
-        <div class="row"><span class="row-label">Upfront sales tax</span><span class="row-val">${$2(L.L1_UpfrontTax)}</span></div>
+        <div class="section-label">Due at signing — ${$2(L.L1_TotalDueAtSigning)}</div>
+        <div class="row"><span class="row-label">Down payment</span><span class="row-val">${$2(L.L1_DownPayment)}</span></div>
+        <div class="row"><span class="row-label">Acquisition fee</span><span class="row-val">${$2(L.L1_AcquisitionFee)}</span></div>
+        <div class="row"><span class="row-label">First month</span><span class="row-val">${$2(L.L1_FirstMonthPayment)}</span></div>
+        <div class="row"><span class="row-label">Monthly sales tax</span><span class="row-val">${$2(L.L1_MonthlySalesTax)}/mo</span></div>
+        <div class="row"><span class="row-label">Upfront sales tax</span><span class="row-val">${$2(L.L1_UpfrontSalesTax)}</span></div>
         <div class="divider"></div>
-        <div class="row"><span class="row-label" style="font-weight:600">3-year total</span><span class="row-val" style="font-size:14px">${$(L.L1_3yr)}</span></div>
+        <div class="row"><span class="row-label" style="font-weight:600">3-year total</span><span class="row-val" style="font-size:14px">${$(L.L1_3YrTotal)}</span></div>
       </div>
 
       <div class="card">
-        <div class="card-title">
-          Lease cycle 2 <span style="font-weight:400;color:var(--text-muted)">(projected)</span>
-          <span class="badge badge-amber">Months 37–72</span>
-        </div>
+        <div class="card-title">Lease cycle 2 <span style="font-weight:400;color:var(--text-muted)">(projected)</span> <span class="badge badge-amber">Months 37–72</span></div>
         <p style="font-size:11px;color:var(--text-faint);margin:-6px 0 10px">4% MSRP inflation · same residual % + money factor</p>
-        <div class="row"><span class="row-label">Future MSRP</span><span class="row-val">${$(L.L2_MSRP)}</span></div>
-        <div class="row"><span class="row-label">Future residual</span><span class="row-val">${$(L.L2_Residual)}</span></div>
-        <div class="row"><span class="row-label">Monthly payment</span><span class="row-val">${$2(L.L2_Monthly)}</span></div>
-        <div class="row"><span class="row-label">Due at signing</span><span class="row-val">${$2(L.L2_Signing)}</span></div>
+        <div class="row"><span class="row-label">Future MSRP</span><span class="row-val">${$(L.L2_FutureMSRP)}</span></div>
+        <div class="row"><span class="row-label">Future residual</span><span class="row-val">${$(L.L2_FutureResidual)}</span></div>
+        <div class="row"><span class="row-label">Monthly payment</span><span class="row-val">${$2(L.L2_MonthlyPayment)}</span></div>
+        <div class="row"><span class="row-label">Due at signing</span><span class="row-val">${$2(L.L2_TotalDueAtSigning)}</span></div>
         <div class="divider"></div>
-        <div class="row"><span class="row-label" style="font-weight:600">3-year total</span><span class="row-val" style="font-size:14px">${$(L.L2_3yr)}</span></div>
+        <div class="row"><span class="row-label" style="font-weight:600">3-year total</span><span class="row-val" style="font-size:14px">${$(L.L2_3YrTotal)}</span></div>
         <div class="divider"></div>
-        <div class="row"><span class="row-label" style="font-weight:600">Lease 6-year total</span><span class="row-val" style="font-size:15px">${$(L.Lease6yr)}</span></div>
+        <div class="row"><span class="row-label" style="font-weight:600">Lease 6-year total</span><span class="row-val" style="font-size:15px">${$(L.Lease_6YrTotal)}</span></div>
         <p class="note">Own nothing at end of year 6</p>
       </div>
     </div>
 
     <div class="card ${finWins ? 'winner' : ''}">
-      <div class="card-title">
-        Finance
-        ${finWins ? '<span class="badge badge-teal">lower net cost</span>' : ''}
-        <span class="badge badge-blue">${F.Term}-month loan · ${F.APR}% APR</span>
-      </div>
+      <div class="card-title">Finance ${finWins ? '<span class="badge badge-teal">lower net cost</span>' : ''} <span class="badge badge-blue">${F.F_Term}-month loan · ${F.F_APR}% APR</span></div>
       <div class="grid4" style="margin-bottom:0">
-        <div class="metric"><div class="metric-label">Monthly</div><div class="metric-value" style="font-size:18px">${$2(F.Monthly)}</div></div>
-        <div class="metric"><div class="metric-label">Amount financed</div><div class="metric-value" style="font-size:18px">${$(F.AmtFinanced)}</div></div>
-        <div class="metric"><div class="metric-label">Due at signing</div><div class="metric-value" style="font-size:18px">${$(F.Signing)}</div></div>
-        <div class="metric"><div class="metric-label">Est. resale (yr 6)</div><div class="metric-value" style="font-size:18px">${$(F.Resale)}</div><div class="metric-sub">40% of MSRP</div></div>
+        <div class="metric"><div class="metric-label">Monthly</div><div class="metric-value" style="font-size:18px">${$2(F.F_MonthlyPayment)}</div></div>
+        <div class="metric"><div class="metric-label">Amount financed</div><div class="metric-value" style="font-size:18px">${$(F.F_AmountFinanced)}</div></div>
+        <div class="metric"><div class="metric-label">Due at signing</div><div class="metric-value" style="font-size:18px">${$(F.F_TotalDueAtSigning)}</div></div>
+        <div class="metric"><div class="metric-label">Est. resale (yr 6)</div><div class="metric-value" style="font-size:18px">${$(F.F_EstimatedResale)}</div><div class="metric-sub">40% of MSRP</div></div>
       </div>
       <div class="divider"></div>
-      <div class="row"><span class="row-label">Gross paid over ${F.Term} months</span><span class="row-val">${$(F.Gross)}</span></div>
-      <div class="row"><span class="row-label">Minus estimated resale value</span><span class="row-val">− ${$(F.Resale)}</span></div>
-      <div class="row"><span class="row-label" style="font-weight:600">Net cost</span><span class="row-val" style="font-size:15px">${$(F.Net)}</span></div>
+      <div class="row"><span class="row-label">Gross paid over ${F.F_Term} months</span><span class="row-val">${$(F.F_GrossTotal)}</span></div>
+      <div class="row"><span class="row-label">Minus estimated resale</span><span class="row-val">− ${$(F.F_EstimatedResale)}</span></div>
+      <div class="row"><span class="row-label" style="font-weight:600">Net cost</span><span class="row-val" style="font-size:15px">${$(F.F_NetTotal)}</span></div>
     </div>
 
     <div class="card">
       <div class="card-title">Cumulative spend — year by year</div>
       <div class="legend">
-        <div class="legend-item"><div class="legend-line" style="background:var(--blue)"></div><span>Lease</span></div>
-        <div class="legend-item"><div class="legend-dashed"></div><span>Finance (gross)</span></div>
+        <div class="legend-item"><div class="legend-line" style="background:#378ADD"></div><span>Lease</span></div>
+        <div class="legend-item"><div style="width:20px;border-top:2px dashed #1D9E75"></div><span>Finance (gross)</span></div>
       </div>
-      <div class="chart-wrap">
-        <canvas id="cumul-chart" role="img" aria-label="Line chart of cumulative lease vs finance spend over 6 years">Cumulative spend data.</canvas>
-      </div>
+      <div class="chart-wrap"><canvas id="cumul-chart" role="img" aria-label="Cumulative lease vs finance spend over 6 years">Chart data.</canvas></div>
     </div>
 
     <div class="card">
@@ -437,20 +274,20 @@ function render() {
             <th>Year</th><th style="text-align:right">Lease/mo</th><th style="text-align:right">Lease total</th>
             <th style="text-align:right">Finance/mo</th><th style="text-align:right">Finance total</th><th style="text-align:right">Difference</th>
           </tr></thead>
-          <tbody>${S.rows.map(r => {
-            const leaseMore = r.diff > 0;
+          <tbody>${sRows.map(r => {
+            const leaseMore = r.Difference_LeaseMinusFinance > 0;
             return `<tr>
-              <td class="td-bold">Yr ${r.y}${r.y===4 ? '<br><span class="td-sub" style="color:var(--amber-text)">new lease</span>' : ''}${r.y===6 ? '<br><span class="td-sub" style="color:var(--blue-text)">loan done</span>' : ''}</td>
-              <td>${$2(r.lmo)}</td>
-              <td class="td-bold">${$(r.lcum)}</td>
-              <td>${r.fmo === 0 ? '<span style="color:var(--text-faint)">—</span>' : $2(r.fmo)}</td>
-              <td class="td-bold">${$(r.fcum)}</td>
-              <td class="${leaseMore ? 'td-red' : 'td-green'}">${leaseMore ? '+' : '-'}${$(r.diff)}<br><span class="td-sub">${leaseMore ? 'lease ahead' : 'finance ahead'}</span></td>
+              <td class="td-bold">Yr ${r.Year}${r.Year===4?'<br><span class="td-sub" style="color:var(--amber-text)">new lease</span>':''}${r.Year===6?'<br><span class="td-sub" style="color:var(--blue-text)">loan done</span>':''}</td>
+              <td>${$2(r.LeaseMonthly)}</td>
+              <td class="td-bold">${$(r.LeaseCumulative)}</td>
+              <td>${r.FinanceMonthly === 0 ? '<span style="color:var(--text-faint)">—</span>' : $2(r.FinanceMonthly)}</td>
+              <td class="td-bold">${$(r.FinanceCumulative)}</td>
+              <td class="${leaseMore ? 'td-red' : 'td-green'}">${leaseMore ? '+' : '-'}${$(r.Difference_LeaseMinusFinance)}<br><span class="td-sub">${leaseMore ? 'lease ahead' : 'finance ahead'}</span></td>
             </tr>`;
           }).join('')}</tbody>
         </table>
       </div>
-      <p class="note">Difference = lease cumulative minus finance cumulative. Negative means finance has spent more to that point (before accounting for resale).</p>
+      <p class="note">Difference = lease cumulative minus finance cumulative. Negative means finance has spent more to that point (before resale).</p>
     </div>
   `;
 
@@ -458,26 +295,32 @@ function render() {
   chartInst = new Chart(document.getElementById('cumul-chart'), {
     type: 'line',
     data: {
-      labels: S.rows.map(r => 'Yr ' + r.y),
+      labels: sRows.map(r => 'Yr ' + r.Year),
       datasets: [
-        {label:'Lease',data:S.rows.map(r=>Math.round(r.lcum)),borderColor:'#378ADD',backgroundColor:'rgba(55,138,221,0.07)',fill:true,tension:0.35,pointRadius:4,pointBackgroundColor:'#378ADD',borderWidth:2,borderDash:[]},
-        {label:'Finance (gross)',data:S.rows.map(r=>Math.round(r.fcum)),borderColor:'#1D9E75',backgroundColor:'transparent',fill:false,tension:0.35,pointRadius:4,pointBackgroundColor:'#1D9E75',borderWidth:2,borderDash:[6,3]},
+        { label:'Lease', data:sRows.map(r=>Math.round(r.LeaseCumulative)), borderColor:'#378ADD', backgroundColor:'rgba(55,138,221,0.07)', fill:true, tension:0.35, pointRadius:4, pointBackgroundColor:'#378ADD', borderWidth:2 },
+        { label:'Finance (gross)', data:sRows.map(r=>Math.round(r.FinanceCumulative)), borderColor:'#1D9E75', backgroundColor:'transparent', fill:false, tension:0.35, pointRadius:4, pointBackgroundColor:'#1D9E75', borderWidth:2, borderDash:[6,3] },
       ]
     },
-    options:{
-      responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': $'+ctx.parsed.y.toLocaleString()}}},
+    options: {
+      responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': $'+ctx.parsed.y.toLocaleString()}} },
       scales:{
-        y:{ticks:{callback:v=>'$'+(v/1000).toFixed(0)+'k',color:'#888780',font:{size:11}},grid:{color:'rgba(136,135,128,0.1)'}},
-        x:{ticks:{color:'#888780',font:{size:11},autoSkip:false},grid:{display:false}}
+        y:{ ticks:{callback:v=>'$'+(v/1000).toFixed(0)+'k',color:'#888780',font:{size:11}}, grid:{color:'rgba(136,135,128,0.1)'} },
+        x:{ ticks:{color:'#888780',font:{size:11},autoSkip:false}, grid:{display:false} }
       }
     }
   });
 }
 
-selModel.addEventListener('change', () => { populateScenarios(selModel.value); render(); });
-selScenario.addEventListener('change', render);
-render();
+(async () => {
+  try {
+    DATA = await loadCSVs();
+    populateSelectors();
+    render();
+  } catch (e) {
+    document.getElementById('main').innerHTML = `<div class="error"><strong>Could not load CSV files.</strong><br>Make sure lease_data.csv, finance_data.csv, and yearly_schedule.csv are in the same folder as dashboard.html.<br><br>Error: ${e.message}</div>`;
+  }
+})();
 </script>
 </body>
 </html>
