@@ -284,10 +284,6 @@ def main():
     yearly_rows = []
 
     for model_name, model_id in MODELS.items():
-        # Fetch one clean residual % per model, pinned at zero down payment
-        print(f"\nFetching anchor residual for {model_name}...")
-        anchor_residual_pct = get_anchor_residual_pct(session, model_name, model_id)
-        time.sleep(0.5)
 
         for scenario in SCENARIOS:
             print(f"\nFetching: {model_name} — {scenario['label']}...")
@@ -296,7 +292,7 @@ def main():
                 print("  Skipping — no data returned.")
                 continue
 
-            lease_row, finance_row, yearly = process(data, scenario, model_name, anchor_residual_pct)
+            lease_row, finance_row, yearly = process(data, scenario, model_name, )
             lease_rows.append(lease_row)
             finance_rows.append(finance_row)
 
