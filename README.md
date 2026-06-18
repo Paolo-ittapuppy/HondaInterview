@@ -4,7 +4,7 @@ A Python tool that pulls live payment data from Honda's API and generates an int
 
 ## Live Dashboard
 
-**[View Dashboard →](https://YOUR_USERNAME.github.io/HondaInterview)**
+**[View Dashboard →](https://Paolo-ittapuppy.github.io/HondaInterview)**
 
 ## What it does
 
