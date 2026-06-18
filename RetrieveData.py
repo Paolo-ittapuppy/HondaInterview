@@ -88,7 +88,7 @@ def fetch_payments(session, model_name, model_id, scenario):
 
 
 def find_residual(msrp, down_payment, acquisition_fee, money_factor, preTax_monthly_payment, term):
-    adjusted_cap_cost = msrp - down_payment + acquisition_fee
+    adjusted_cap_cost = msrp + acquisition_fee
     residual = (preTax_monthly_payment - adjusted_cap_cost / term - adjusted_cap_cost * money_factor) / (money_factor - 1 / term)
     return round(residual, 2)
 
