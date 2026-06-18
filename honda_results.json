@@ -13,11 +13,12 @@
       "financeDownPayment": 0,
       "fico": 740,
       "financeFico": 740,
-      "leaseOrFinance": 0
+      "leaseOrFinance": "finance"
     },
     "extracted": {
       "leaseData": {
         "MonthlyPayment": 315.17,
+        "PreTaxMonthlyPayment": 285.21,
         "TotalDueAtSigning": 5042.86,
         "Term": 36,
         "MoneyFactor": 0.00203,
@@ -37,7 +38,915 @@
       },
       "modelData": {
         "MSRP": 29395.0
-      }
+      },
+      "taxRate": 10.5
+    },
+    "raw": {
+      "FinanceResults": {
+        "NoFinanceSpecial": {
+          "MonthlyPayment": 645.5,
+          "PreTaxMonthlyPayment": 645.5,
+          "MonthlySalesTax": 0.0,
+          "UpfrontSalesTax": 3211.95,
+          "AmountFinanced": 33801.95,
+          "TotalDueAtSigning": 0.0,
+          "InitialPayment": 0.0,
+          "Term": 60,
+          "Apr": 5.49,
+          "AhmSalesProgramId": null,
+          "SalesProgramId": null
+        },
+        "FinanceSpecials": [
+          {
+            "MonthlyPayment": 645.5,
+            "PreTaxMonthlyPayment": 645.5,
+            "MonthlySalesTax": 0.0,
+            "UpfrontSalesTax": 3211.95,
+            "AmountFinanced": 33801.95,
+            "TotalDueAtSigning": 0.0,
+            "Special": {
+              "Id": "a1hUT00000121STYAY-FE4F8TKNW",
+              "eShoppingId": "a1hUT00000121STYAY",
+              "ahmSalesProgramId": "HP-50W",
+              "SalesProgramName": "2026 Civic Sedan Hybrid Special APR",
+              "SalesProgramType": "Finance",
+              "SalesProgramTypeDescription": "Special APR",
+              "StartDate": "2026-05-01",
+              "EndDate": "2026-07-06",
+              "IsFeatured": true,
+              "IsUniversal": false,
+              "BusinessPriority": 3,
+              "ModelId": "FE4F8TKNW",
+              "ModelGroupName": "Civic Sedan",
+              "ModelYear": 2026,
+              "ModelMsrp": 32395.0,
+              "ModelStockPhoto": "/-/media/Honda-Automobiles/Vehicles/2026/civic-sedan/AW/Thumb/thumb_CivicSedan_front_CIVIC4DHYBSPTRG_2026_CrystalBlackPearl_FE4F8TKNW_NH-731P.jpg",
+              "ModelStockPhotoLarge": "/-/media/Honda-Automobiles/Vehicles/2026/civic-sedan/AW/Carshot/carshot_CivicSedan_front_CIVIC4DHYBSPTRG_2026_CrystalBlackPearl_FE4F8TKNW_NH-731P.png",
+              "ResizedModelStockPhoto": null,
+              "ApplicableModelIds": [
+                "FE4F8TKNW",
+                "FE4F8TJW"
+              ],
+              "SpecialShortDescription": "5.49% APR 24-60 MOS. or 6.49% APR 61-72 MOS.",
+              "SpecialDescription": "Available only for residents of AZ, CA, CO, CT, DE, FL, HI, IA, IN, KY, MA, ME, MI, MN, ND, NE, NH, NJ, NV, NY, OH, PA, RI, SD, UT, VT, WI.\n\nAvailable on approved credit through Honda Financial Services in select states only. 5.49% APR for up to 60 months on select new and unregistered 2026 Honda Civic Sedan Hybrid models through 7/6/2026, for well-qualified buyers. Excludes Gas models. Not all buyers will qualify. Higher financing rates apply for buyers with lower credit ratings. Actual down payment may vary. Dealer participation may affect actual payment. Dealer sets actual prices. See participating dealers for details.",
+              "ShortDisclaimer": "For well-qualified buyers. Example: 10% down payment. 60 months financing at $19.10/month per $1,000 financed.",
+              "TermsAndConditions": "",
+              "ModelMarketingName": "Civic Sedan 2WD Sport Touring Hybrid",
+              "ModelTrim": "Sport Touring Hybrid",
+              "ModelDriveTrain": null,
+              "PaymentTerms": {
+                "FinanceTerms": [
+                  {
+                    "APR": 5.49,
+                    "TermMin": 24,
+                    "TermMax": 60
+                  },
+                  {
+                    "APR": 6.49,
+                    "TermMin": 61,
+                    "TermMax": 72
+                  }
+                ]
+              },
+              "AdditionalInfoUrl": null,
+              "BannerImageUrl": null,
+              "CutlineText": null,
+              "OfferType": null,
+              "OfferAttributes": [
+                "graduate",
+                "military"
+              ],
+              "AllowedStackableOffers": [],
+              "EShoppingCategory": "R",
+              "FicoLowerBound": 720,
+              "FicoUpperBound": 759,
+              "FicoDisabled": null,
+              "SelectedFeaturedOffer": null,
+              "EShoppingNotFound": false,
+              "ModelShortName": null,
+              "ModelSeriesItemName": null,
+              "VehicleCategoryName": null
+            },
+            "InitialPayment": 0.0,
+            "FicoLowerBound": 720,
+            "FicoUpperBound": 759,
+            "Term": 60,
+            "Apr": 5.49,
+            "AhmSalesProgramId": "HP-50W",
+            "SalesProgramId": null
+          }
+        ],
+        "FinanceSalesPrograms": [
+          {
+            "MonthlyPayment": 645.5,
+            "PreTaxMonthlyPayment": 645.5,
+            "MonthlySalesTax": 0.0,
+            "UpfrontSalesTax": 3211.95,
+            "AmountFinanced": 33801.95,
+            "TotalDueAtSigning": 0.0,
+            "InitialPayment": 0.0,
+            "FicoLowerBound": 720,
+            "FicoUpperBound": 759,
+            "Term": 60,
+            "Apr": 5.49,
+            "AhmSalesProgramId": "HP-50W",
+            "SalesProgramId": 185995.0
+          },
+          {
+            "MonthlyPayment": 645.5,
+            "PreTaxMonthlyPayment": 645.5,
+            "MonthlySalesTax": 0.0,
+            "UpfrontSalesTax": 3211.95,
+            "AmountFinanced": 33801.95,
+            "TotalDueAtSigning": 0.0,
+            "InitialPayment": 0.0,
+            "FicoLowerBound": 720,
+            "FicoUpperBound": 759,
+            "Term": 60,
+            "Apr": 5.49,
+            "AhmSalesProgramId": "HP-50W",
+            "SalesProgramId": 185997.0
+          },
+          {
+            "MonthlyPayment": 656.94,
+            "PreTaxMonthlyPayment": 656.94,
+            "MonthlySalesTax": 0.0,
+            "UpfrontSalesTax": 3211.95,
+            "AmountFinanced": 33801.95,
+            "TotalDueAtSigning": 0.0,
+            "InitialPayment": 0.0,
+            "FicoLowerBound": 720,
+            "FicoUpperBound": 759,
+            "Term": 60,
+            "Apr": 6.22,
+            "AhmSalesProgramId": null,
+            "SalesProgramId": 186868.0
+          }
+        ],
+        "SalesTax": {
+          "MonthlyTaxRate": 0.0,
+          "UpfrontTaxRate": 10.5,
+          "TaxBasisCd": "US",
+          "StateCode": "CA",
+          "TradeInTaxDeductibleInd": false,
+          "TradeInTaxRate": 0.0,
+          "DownPaymentTaxableInd": false,
+          "DownPaymentTaxRate": 0.0,
+          "CashRebateTaxableInd": false,
+          "CashRebateTaxRate": 0.0,
+          "TaxRate": null
+        },
+        "SalesTaxAmount": {
+          "MonthlyTaxAmt": 0.0,
+          "UpfrontTaxAmt": 3211.95,
+          "TradeInTaxDeductibleAmt": 0.0,
+          "DownPaymentTaxableAmt": 0.0,
+          "CashRebateTaxableAmt": 0.0
+        },
+        "BestRate": {
+          "MonthlyPayment": 656.94,
+          "PreTaxMonthlyPayment": 656.94,
+          "MonthlySalesTax": 0.0,
+          "UpfrontSalesTax": 3211.95,
+          "AmountFinanced": 33801.95,
+          "TotalDueAtSigning": 0.0,
+          "InitialPayment": 0.0,
+          "FicoLowerBound": 720,
+          "FicoUpperBound": 759,
+          "Term": 60,
+          "Apr": 6.22,
+          "AhmSalesProgramId": null,
+          "SalesProgramId": 186868.0
+        }
+      },
+      "LeaseResults": {
+        "NoLeaseSpecial": {
+          "eShoppingId": "",
+          "MonthlyPayment": 315.17,
+          "PreTaxMonthlyPayment": 285.21,
+          "MonthlySalesTax": 29.96,
+          "UpfrontSalesTax": 0.0,
+          "AcquisitionFee": 595.0,
+          "FirstMonthPayment": 315.17,
+          "TotalDueAtSigning": 5042.86,
+          "AnnualMileage": 15000,
+          "VehiclePriceAtSigning": 26850.0,
+          "Term": 36,
+          "MoneyFactor": 0.00203,
+          "AhmSalesProgramId": null,
+          "SalesProgramId": null
+        },
+        "LeaseSpecials": [
+          {
+            "MonthlyPayment": 315.16,
+            "PreTaxMonthlyPayment": 285.21,
+            "MonthlySalesTax": 29.95,
+            "UpfrontSalesTax": 0.0,
+            "AcquisitionFee": 595.0,
+            "FirstMonthPayment": 315.16,
+            "TotalDueAtSigning": 5042.85,
+            "AnnualMileage": 15000,
+            "Special": {
+              "Id": "a1hUT00000121x7YAA-FE4F8TJW",
+              "eShoppingId": "a1hUT00000121x7YAA",
+              "ahmSalesProgramId": "HP-52W",
+              "SalesProgramName": "2026 Civic Sedan 2WD Sport Hybrid Continuously Variable Transmission Featured Special Lease",
+              "SalesProgramType": "Lease",
+              "SalesProgramTypeDescription": "Featured Special Lease",
+              "StartDate": "2026-05-01",
+              "EndDate": "2026-07-06",
+              "IsFeatured": true,
+              "IsUniversal": false,
+              "BusinessPriority": 3,
+              "ModelId": "FE4F8TJW",
+              "ModelGroupName": "Civic Sedan",
+              "ModelYear": 2026,
+              "ModelMsrp": 29395.0,
+              "ModelStockPhoto": "/-/media/Honda-Automobiles/Vehicles/2026/civic-sedan/AW/Thumb/thumb_CivicSedan_front_CIVIC4DHYBSPORT_2026_CrystalBlackPearl_FE4F8TJW_NH-731P.jpg",
+              "ModelStockPhotoLarge": "/-/media/Honda-Automobiles/Vehicles/2026/civic-sedan/AW/Carshot/carshot_CivicSedan_front_CIVIC4DHYBSPORT_2026_CrystalBlackPearl_FE4F8TJW_NH-731P.png",
+              "ResizedModelStockPhoto": null,
+              "ApplicableModelIds": [
+                "FE4F8TKNW",
+                "FE4F8TJW"
+              ],
+              "SpecialShortDescription": "$259.00 Lease Per MO. For 36 MOS. $3,999.00 Due at lease signing.",
+              "SpecialDescription": "Offer excludes accessories and premium paint color. Closed-end lease for 2026 Civic Sedan 2WD Sport Hybrid Continuously Variable Transmission available through 7/6/2026, to approved lessees by Honda Financial Services. MSRP $30,590.00 (includes destination; excludes tax, title, license, registration, options, insurance). Actual net capitalized cost $26,921.19. Total monthly payments $9,324.00. Option to purchase at lease end $21,107.10. Lessee responsible for maintenance, excessive wear/tear and up to 20\u00a2/mi. over 10,000 miles/year. Dealer participation may affect actual payment. Dealer sets actual prices. See participating dealers for details.",
+              "ShortDisclaimer": "Includes down payment, no security deposit required; excludes tax, title, license and dealer fees. For well-qualified customers.",
+              "TermsAndConditions": "",
+              "ModelMarketingName": "Civic Sedan 2WD Sport Hybrid",
+              "ModelTrim": "Sport Hybrid",
+              "ModelDriveTrain": null,
+              "LeasePaymentInfo": {
+                "TermRanges": [
+                  {
+                    "Min": 24,
+                    "Max": 36
+                  }
+                ],
+                "BaseMonthlyPayment": 259.0,
+                "TotalDueAtSigning": 3999.0,
+                "CapitalCostReduction": 3740.0,
+                "MoneyFactor": 0.00203,
+                "AnnualMiles": "10000"
+              },
+              "AdditionalInfoUrl": null,
+              "BannerImageUrl": null,
+              "CutlineText": null,
+              "OfferType": null,
+              "OfferAttributes": [
+                "graduate",
+                "military"
+              ],
+              "AllowedStackableOffers": [],
+              "EShoppingCategory": "L",
+              "FicoLowerBound": 720,
+              "FicoUpperBound": 759,
+              "FicoDisabled": null,
+              "SelectedFeaturedOffer": null,
+              "EShoppingNotFound": false,
+              "ModelShortName": null,
+              "ModelSeriesItemName": null,
+              "VehicleCategoryName": null
+            },
+            "VehiclePriceAtSigning": 26850.0,
+            "FicoLowerBound": 720,
+            "FicoUpperBound": 759,
+            "Term": 36,
+            "MoneyFactor": null,
+            "AhmSalesProgramId": "HP-52W",
+            "SalesProgramId": null
+          }
+        ],
+        "LeaseSalesPrograms": [
+          {
+            "MonthlyPayment": 280.48,
+            "PreTaxMonthlyPayment": 253.83,
+            "MonthlySalesTax": 26.65,
+            "UpfrontSalesTax": 0.0,
+            "AcquisitionFee": 595.0,
+            "FirstMonthPayment": 280.48,
+            "TotalDueAtSigning": 5008.17,
+            "AnnualMileage": 7500,
+            "VehiclePriceAtSigning": 26850.0,
+            "FicoLowerBound": 720,
+            "FicoUpperBound": 759,
+            "Term": 36,
+            "MoneyFactor": 0.00203,
+            "AhmSalesProgramId": "HP-52W",
+            "SalesProgramId": 186003.0
+          },
+          {
+            "MonthlyPayment": 289.15,
+            "PreTaxMonthlyPayment": 261.67,
+            "MonthlySalesTax": 27.48,
+            "UpfrontSalesTax": 0.0,
+            "AcquisitionFee": 595.0,
+            "FirstMonthPayment": 289.15,
+            "TotalDueAtSigning": 5016.84,
+            "AnnualMileage": 10000,
+            "VehiclePriceAtSigning": 26850.0,
+            "FicoLowerBound": 720,
+            "FicoUpperBound": 759,
+            "Term": 36,
+            "MoneyFactor": 0.00203,
+            "AhmSalesProgramId": "HP-52W",
+            "SalesProgramId": 186003.0
+          },
+          {
+            "MonthlyPayment": 297.82,
+            "PreTaxMonthlyPayment": 269.52,
+            "MonthlySalesTax": 28.3,
+            "UpfrontSalesTax": 0.0,
+            "AcquisitionFee": 595.0,
+            "FirstMonthPayment": 297.82,
+            "TotalDueAtSigning": 5025.51,
+            "AnnualMileage": 12000,
+            "VehiclePriceAtSigning": 26850.0,
+            "FicoLowerBound": 720,
+            "FicoUpperBound": 759,
+            "Term": 36,
+            "MoneyFactor": 0.00203,
+            "AhmSalesProgramId": "HP-52W",
+            "SalesProgramId": 186003.0
+          },
+          {
+            "MonthlyPayment": 315.16,
+            "PreTaxMonthlyPayment": 285.21,
+            "MonthlySalesTax": 29.95,
+            "UpfrontSalesTax": 0.0,
+            "AcquisitionFee": 595.0,
+            "FirstMonthPayment": 315.16,
+            "TotalDueAtSigning": 5042.85,
+            "AnnualMileage": 15000,
+            "VehiclePriceAtSigning": 26850.0,
+            "FicoLowerBound": 720,
+            "FicoUpperBound": 759,
+            "Term": 36,
+            "MoneyFactor": 0.00203,
+            "AhmSalesProgramId": "HP-52W",
+            "SalesProgramId": 186003.0
+          },
+          {
+            "MonthlyPayment": 280.48,
+            "PreTaxMonthlyPayment": 253.83,
+            "MonthlySalesTax": 26.65,
+            "UpfrontSalesTax": 0.0,
+            "AcquisitionFee": 595.0,
+            "FirstMonthPayment": 280.48,
+            "TotalDueAtSigning": 5008.17,
+            "AnnualMileage": 7500,
+            "VehiclePriceAtSigning": 26850.0,
+            "FicoLowerBound": 720,
+            "FicoUpperBound": 759,
+            "Term": 36,
+            "MoneyFactor": 0.00203,
+            "AhmSalesProgramId": "HP-52W",
+            "SalesProgramId": 186004.0
+          },
+          {
+            "MonthlyPayment": 289.15,
+            "PreTaxMonthlyPayment": 261.67,
+            "MonthlySalesTax": 27.48,
+            "UpfrontSalesTax": 0.0,
+            "AcquisitionFee": 595.0,
+            "FirstMonthPayment": 289.15,
+            "TotalDueAtSigning": 5016.84,
+            "AnnualMileage": 10000,
+            "VehiclePriceAtSigning": 26850.0,
+            "FicoLowerBound": 720,
+            "FicoUpperBound": 759,
+            "Term": 36,
+            "MoneyFactor": 0.00203,
+            "AhmSalesProgramId": "HP-52W",
+            "SalesProgramId": 186004.0
+          },
+          {
+            "MonthlyPayment": 297.82,
+            "PreTaxMonthlyPayment": 269.52,
+            "MonthlySalesTax": 28.3,
+            "UpfrontSalesTax": 0.0,
+            "AcquisitionFee": 595.0,
+            "FirstMonthPayment": 297.82,
+            "TotalDueAtSigning": 5025.51,
+            "AnnualMileage": 12000,
+            "VehiclePriceAtSigning": 26850.0,
+            "FicoLowerBound": 720,
+            "FicoUpperBound": 759,
+            "Term": 36,
+            "MoneyFactor": 0.00203,
+            "AhmSalesProgramId": "HP-52W",
+            "SalesProgramId": 186004.0
+          },
+          {
+            "MonthlyPayment": 315.16,
+            "PreTaxMonthlyPayment": 285.21,
+            "MonthlySalesTax": 29.95,
+            "UpfrontSalesTax": 0.0,
+            "AcquisitionFee": 595.0,
+            "FirstMonthPayment": 315.16,
+            "TotalDueAtSigning": 5042.85,
+            "AnnualMileage": 15000,
+            "VehiclePriceAtSigning": 26850.0,
+            "FicoLowerBound": 720,
+            "FicoUpperBound": 759,
+            "Term": 36,
+            "MoneyFactor": 0.00203,
+            "AhmSalesProgramId": "HP-52W",
+            "SalesProgramId": 186004.0
+          },
+          {
+            "MonthlyPayment": 321.54,
+            "PreTaxMonthlyPayment": 290.99,
+            "MonthlySalesTax": 30.55,
+            "UpfrontSalesTax": 0.0,
+            "AcquisitionFee": 595.0,
+            "FirstMonthPayment": 321.54,
+            "TotalDueAtSigning": 5049.23,
+            "AnnualMileage": 7500,
+            "VehiclePriceAtSigning": 26850.0,
+            "FicoLowerBound": 720,
+            "FicoUpperBound": 759,
+            "Term": 36,
+            "MoneyFactor": 0.0028,
+            "AhmSalesProgramId": "HP-STDL",
+            "SalesProgramId": 186920.0
+          },
+          {
+            "MonthlyPayment": 329.95,
+            "PreTaxMonthlyPayment": 298.6,
+            "MonthlySalesTax": 31.35,
+            "UpfrontSalesTax": 0.0,
+            "AcquisitionFee": 595.0,
+            "FirstMonthPayment": 329.95,
+            "TotalDueAtSigning": 5057.64,
+            "AnnualMileage": 10000,
+            "VehiclePriceAtSigning": 26850.0,
+            "FicoLowerBound": 720,
+            "FicoUpperBound": 759,
+            "Term": 36,
+            "MoneyFactor": 0.0028,
+            "AhmSalesProgramId": "HP-STDL",
+            "SalesProgramId": 186920.0
+          },
+          {
+            "MonthlyPayment": 338.36,
+            "PreTaxMonthlyPayment": 306.21,
+            "MonthlySalesTax": 32.15,
+            "UpfrontSalesTax": 0.0,
+            "AcquisitionFee": 595.0,
+            "FirstMonthPayment": 338.36,
+            "TotalDueAtSigning": 5066.05,
+            "AnnualMileage": 12000,
+            "VehiclePriceAtSigning": 26850.0,
+            "FicoLowerBound": 720,
+            "FicoUpperBound": 759,
+            "Term": 36,
+            "MoneyFactor": 0.0028,
+            "AhmSalesProgramId": "HP-STDL",
+            "SalesProgramId": 186920.0
+          },
+          {
+            "MonthlyPayment": 355.18,
+            "PreTaxMonthlyPayment": 321.43,
+            "MonthlySalesTax": 33.75,
+            "UpfrontSalesTax": 0.0,
+            "AcquisitionFee": 595.0,
+            "FirstMonthPayment": 355.18,
+            "TotalDueAtSigning": 5082.87,
+            "AnnualMileage": 15000,
+            "VehiclePriceAtSigning": 26850.0,
+            "FicoLowerBound": 720,
+            "FicoUpperBound": 759,
+            "Term": 36,
+            "MoneyFactor": 0.0028,
+            "AhmSalesProgramId": "HP-STDL",
+            "SalesProgramId": 186920.0
+          }
+        ],
+        "SalesTax": {
+          "MonthlyTaxRate": 10.5,
+          "UpfrontTaxRate": 0.0,
+          "TaxBasisCd": "ST",
+          "StateCode": "CA",
+          "TradeInTaxDeductibleInd": false,
+          "TradeInTaxRate": 0.0,
+          "DownPaymentTaxableInd": true,
+          "DownPaymentTaxRate": 10.5,
+          "CashRebateTaxableInd": false,
+          "CashRebateTaxRate": 0.0,
+          "TaxRate": null
+        },
+        "SalesTaxAmount": {
+          "MonthlyTaxAmt": 29.96,
+          "UpfrontTaxAmt": 0.0,
+          "TradeInTaxDeductibleAmt": 0.0,
+          "DownPaymentTaxableAmt": 392.69,
+          "CashRebateTaxableAmt": 0.0
+        },
+        "BestRate": null
+      },
+      "Constants": {
+        "FinanceTerms": {
+          "Type": "DropDownList",
+          "Values": [
+            "24",
+            "27",
+            "30",
+            "33",
+            "36",
+            "39",
+            "42",
+            "45",
+            "48",
+            "51",
+            "54",
+            "57",
+            "60",
+            "63",
+            "66",
+            "69",
+            "72"
+          ],
+          "Default": "60"
+        },
+        "LeaseTerms": {
+          "Type": "DropDownList",
+          "Values": [
+            "24",
+            "27",
+            "30",
+            "33",
+            "36",
+            "39",
+            "42",
+            "45",
+            "48",
+            "51",
+            "54",
+            "57",
+            "60"
+          ],
+          "Default": "36"
+        },
+        "ReverseTerms": {
+          "Type": "DropDownList",
+          "Values": [
+            "24",
+            "36",
+            "48",
+            "60"
+          ],
+          "Default": "48"
+        },
+        "LeaseMileage": {
+          "Type": "DropDownList",
+          "Values": [
+            "10,000",
+            "12,000",
+            "15,000"
+          ]
+        },
+        "CalculatorDisclaimerText": {
+          "Type": "DisclaimerText",
+          "Value": "Terms are not available in all areas. Rates and requirements will vary based on geographic location and credit worthiness. Estimated payments exclude applicable taxes, title, registration, license, and documentary fees. Not all Honda automobile dealers participate in these programs. Programs limited to 48 U.S. contiguous states, Alaska and Hawaii. See your local Honda automobile dealer for program details and offers. This is not an offer of direct financing or of any particular lease or purchase transaction. Trade-in values obtained from Kelley Blue Book are estimates and the actual value of your vehicle may vary. The actual value of your trade-in may be higher or lower depending upon the condition of your vehicle, equipment and local market conditions."
+        },
+        "TradeinURL": {
+          "Type": "URL",
+          "Value": "https://www.intelliprice.com/intellipricedealer/start.htm?dealerID=3101011"
+        },
+        "NewVehicleDefaultAPR": {
+          "Type": "Constant",
+          "Value": "3.5"
+        },
+        "UsedVehicleDefaultAPR": {
+          "Type": "Constant",
+          "Value": "6.09"
+        },
+        "UsedVehicleTermsAPR": {
+          "Type": "Constant",
+          "Values": [
+            "6.09",
+            "6.09",
+            "6.09",
+            "6.09",
+            "9.5"
+          ]
+        },
+        "FicoScores": {
+          "Type": "DropDownList",
+          "Default": "900",
+          "CreditScoreRanges": [
+            {
+              "Text": "740+",
+              "Value": "740",
+              "Color": "Green"
+            },
+            {
+              "Text": "739 - 720",
+              "Value": "720",
+              "Color": "Green"
+            },
+            {
+              "Text": "719 - 700",
+              "Value": "700",
+              "Color": "Yellow"
+            },
+            {
+              "Text": "699 - 680",
+              "Value": "680",
+              "Color": "Yellow"
+            },
+            {
+              "Text": "679 - 660",
+              "Value": "660",
+              "Color": "Yellow"
+            },
+            {
+              "Text": "659 - 640",
+              "Value": "640",
+              "Color": "Orange"
+            },
+            {
+              "Text": "639 - 620",
+              "Value": "620",
+              "Color": "Orange"
+            },
+            {
+              "Text": "619 - 610",
+              "Value": "610",
+              "Color": "Orange"
+            },
+            {
+              "Text": "609 - 250",
+              "Value": "600",
+              "Color": "Red"
+            },
+            {
+              "Text": "N/A",
+              "Value": "900",
+              "Color": null
+            }
+          ]
+        },
+        "EnableDefaultFinanceTerms": {
+          "Type": "Constant",
+          "Value": "True"
+        }
+      },
+      "Vehicle": {
+        "VehicleModelSeriesName": "2026 Civic Sport Hybrid Sedan",
+        "VehicleModelImageUrl": "https://automobiles.honda.com/platform/api/v4/images/exterior/02?config=M:FE4F8TJW$EC:NH-932M$HC:undefined$IC:BK$O:$F:FIFS$ECC:SA$ECX:&width=1400&filetype=png&background=transparent",
+        "MSRP": 29395.0,
+        "DestinationCharge": 1195.0,
+        "TotalPrice": 30590.0,
+        "PETotalPriceDisclaimer": null,
+        "MsrpDisclaimer": {
+          "id": "361-msrp-cars",
+          "title": "MSRP",
+          "description": "MSRP excluding tax, license, registration,  $1,195 destination charge, and accessories. Dealer prices may vary. MSRP does not include $455 charge for premium colors. "
+        },
+        "AsBuiltMsrpDisclaimer": {
+          "id": "364-total-msrp-as-built-summary",
+          "title": "Total MSRP as Built",
+          "description": "MSRP includes $1,195 destination charge and any selected accessories. MSRP excludes tax, license, registration, and any accessory installation costs. Dealer prices may vary. MSRP includes $455 charge for premium colors."
+        },
+        "ModelYear": 2026,
+        "ModelSeries": "Civic Sedan",
+        "AccessoryTotalCost": 0.0,
+        "EstimatedAdditionalCharges": 30590.0,
+        "OfferAmount": 0.0,
+        "EstimatedSubtotal": 30590.0,
+        "TrimName": "Sport Hybrid",
+        "Powertrain": "2.0L L4 with 2-Motor Hybrid System",
+        "ModelSeriesItemName": "civic-sedan"
+      },
+      "Specials": {
+        "Specials": [
+          {
+            "Id": "a1hUT00000121STYAY-FE4F8TKNW",
+            "eShoppingId": "a1hUT00000121STYAY",
+            "ahmSalesProgramId": "HP-50W",
+            "SalesProgramName": "2026 Civic Sedan Hybrid Special APR",
+            "SalesProgramType": "Finance",
+            "SalesProgramTypeDescription": "Special APR",
+            "StartDate": "2026-05-01",
+            "EndDate": "2026-07-06",
+            "IsFeatured": true,
+            "IsUniversal": false,
+            "BusinessPriority": 3,
+            "ModelId": "FE4F8TKNW",
+            "ModelGroupName": "Civic Sedan",
+            "ModelYear": 2026,
+            "ModelMsrp": 32395.0,
+            "ModelStockPhoto": "/-/media/Honda-Automobiles/Vehicles/2026/civic-sedan/AW/Thumb/thumb_CivicSedan_front_CIVIC4DHYBSPTRG_2026_CrystalBlackPearl_FE4F8TKNW_NH-731P.jpg",
+            "ModelStockPhotoLarge": "/-/media/Honda-Automobiles/Vehicles/2026/civic-sedan/AW/Carshot/carshot_CivicSedan_front_CIVIC4DHYBSPTRG_2026_CrystalBlackPearl_FE4F8TKNW_NH-731P.png",
+            "ResizedModelStockPhoto": null,
+            "ApplicableModelIds": [
+              "FE4F8TKNW",
+              "FE4F8TJW"
+            ],
+            "SpecialShortDescription": "5.49% APR 24-60 MOS. or 6.49% APR 61-72 MOS.",
+            "SpecialDescription": "Available only for residents of AZ, CA, CO, CT, DE, FL, HI, IA, IN, KY, MA, ME, MI, MN, ND, NE, NH, NJ, NV, NY, OH, PA, RI, SD, UT, VT, WI.\n\nAvailable on approved credit through Honda Financial Services in select states only. 5.49% APR for up to 60 months on select new and unregistered 2026 Honda Civic Sedan Hybrid models through 7/6/2026, for well-qualified buyers. Excludes Gas models. Not all buyers will qualify. Higher financing rates apply for buyers with lower credit ratings. Actual down payment may vary. Dealer participation may affect actual payment. Dealer sets actual prices. See participating dealers for details.",
+            "ShortDisclaimer": "For well-qualified buyers. Example: 10% down payment. 60 months financing at $19.10/month per $1,000 financed.",
+            "TermsAndConditions": "",
+            "ModelMarketingName": "Civic Sedan 2WD Sport Touring Hybrid",
+            "ModelTrim": "Sport Touring Hybrid",
+            "ModelDriveTrain": null,
+            "PaymentTerms": {
+              "FinanceTerms": [
+                {
+                  "APR": 5.49,
+                  "TermMin": 24,
+                  "TermMax": 60
+                },
+                {
+                  "APR": 6.49,
+                  "TermMin": 61,
+                  "TermMax": 72
+                }
+              ]
+            },
+            "AdditionalInfoUrl": "",
+            "BannerImageUrl": "",
+            "CutlineText": "",
+            "OfferType": null,
+            "OfferAttributes": [
+              "graduate",
+              "military"
+            ],
+            "AllowedStackableOffers": [
+              "a1hUT000000xPbtYAE",
+              "a1hUT000000xPtdYAE"
+            ],
+            "EShoppingCategory": "R",
+            "FicoLowerBound": 720,
+            "FicoUpperBound": 759,
+            "FicoDisabled": false,
+            "SelectedFeaturedOffer": false,
+            "EShoppingNotFound": null,
+            "ModelShortName": null,
+            "ModelSeriesItemName": null,
+            "VehicleCategoryName": null
+          },
+          {
+            "Id": "a1hUT00000121x7YAA-FE4F8TJW",
+            "eShoppingId": "a1hUT00000121x7YAA",
+            "ahmSalesProgramId": "HP-52W",
+            "SalesProgramName": "2026 Civic Sedan 2WD Sport Hybrid Continuously Variable Transmission Featured Special Lease",
+            "SalesProgramType": "Lease",
+            "SalesProgramTypeDescription": "Featured Special Lease",
+            "StartDate": "2026-05-01",
+            "EndDate": "2026-07-06",
+            "IsFeatured": true,
+            "IsUniversal": false,
+            "BusinessPriority": 3,
+            "ModelId": "FE4F8TJW",
+            "ModelGroupName": "Civic Sedan",
+            "ModelYear": 2026,
+            "ModelMsrp": 29395.0,
+            "ModelStockPhoto": "/-/media/Honda-Automobiles/Vehicles/2026/civic-sedan/AW/Thumb/thumb_CivicSedan_front_CIVIC4DHYBSPORT_2026_CrystalBlackPearl_FE4F8TJW_NH-731P.jpg",
+            "ModelStockPhotoLarge": "/-/media/Honda-Automobiles/Vehicles/2026/civic-sedan/AW/Carshot/carshot_CivicSedan_front_CIVIC4DHYBSPORT_2026_CrystalBlackPearl_FE4F8TJW_NH-731P.png",
+            "ResizedModelStockPhoto": null,
+            "ApplicableModelIds": [
+              "FE4F8TKNW",
+              "FE4F8TJW"
+            ],
+            "SpecialShortDescription": "$259.00 Lease Per MO. For 36 MOS. $3,999.00 Due at lease signing.",
+            "SpecialDescription": "Offer excludes accessories and premium paint color. Closed-end lease for 2026 Civic Sedan 2WD Sport Hybrid Continuously Variable Transmission available through 7/6/2026, to approved lessees by Honda Financial Services. MSRP $30,590.00 (includes destination; excludes tax, title, license, registration, options, insurance). Actual net capitalized cost $26,921.19. Total monthly payments $9,324.00. Option to purchase at lease end $21,107.10. Lessee responsible for maintenance, excessive wear/tear and up to 20\u00a2/mi. over 10,000 miles/year. Dealer participation may affect actual payment. Dealer sets actual prices. See participating dealers for details.",
+            "ShortDisclaimer": "Includes down payment, no security deposit required; excludes tax, title, license and dealer fees. For well-qualified customers.",
+            "TermsAndConditions": "",
+            "ModelMarketingName": "Civic Sedan 2WD Sport Hybrid",
+            "ModelTrim": "Sport Hybrid",
+            "ModelDriveTrain": null,
+            "LeasePaymentInfo": {
+              "TermMonths": 36,
+              "BaseMonthlyPayment": 259.0,
+              "TotalDueAtSigning": 3999.0,
+              "CapitalCostReduction": 3740.0,
+              "MoneyFactor": 0.00203,
+              "AnnualMiles": "10000"
+            },
+            "AdditionalInfoUrl": "",
+            "BannerImageUrl": "",
+            "CutlineText": "",
+            "OfferType": null,
+            "OfferAttributes": [
+              "graduate",
+              "military"
+            ],
+            "AllowedStackableOffers": [
+              "a1hUT000000xPbtYAE",
+              "a1hUT000000xPtdYAE"
+            ],
+            "EShoppingCategory": "L",
+            "FicoLowerBound": 720,
+            "FicoUpperBound": 759,
+            "FicoDisabled": false,
+            "SelectedFeaturedOffer": false,
+            "EShoppingNotFound": null,
+            "ModelShortName": null,
+            "ModelSeriesItemName": null,
+            "VehicleCategoryName": null
+          },
+          {
+            "Id": "a1hUT000000xPbtYAE-FE2F5SEW",
+            "eShoppingId": "a1hUT000000xPbtYAE",
+            "ahmSalesProgramId": "",
+            "SalesProgramName": "Honda Military Appreciation Offer",
+            "SalesProgramType": "Military",
+            "SalesProgramTypeDescription": "Honda Military Appreciation Offer",
+            "StartDate": "2026-04-01",
+            "EndDate": "2027-03-31",
+            "IsFeatured": true,
+            "IsUniversal": true,
+            "BusinessPriority": 3,
+            "ModelGroupName": "All Vehicles",
+            "ModelStockPhoto": "/-/media/Honda-Automobiles/Vehicles/2025/civic-sedan/AW/Thumb/thumb_CivicSedan_front_CIVIC4DSPORT_2025_CrystalBlackPearl_FE2F5SEW_NH-731P.jpg",
+            "ModelStockPhotoLarge": "/-/media/Honda-Automobiles/Vehicles/2025/civic-sedan/AW/Carshot/carshot_CivicSedan_front_CIVIC4DSPORT_2025_CrystalBlackPearl_FE2F5SEW_NH-731P.png",
+            "ResizedModelStockPhoto": null,
+            "ApplicableModelIds": [
+              "FE2F5SEW",
+              "FE4F8SJW",
+              "FE2F5TEW",
+              "FE4F8TKNW"
+            ],
+            "SpecialShortDescription": "In appreciation for your military service, Honda is offering select U.S. Military individuals and their spouses $500 toward any 2025 or newer model year Honda automobile when you finance or lease through Honda Financial Services\u00ae (HFS). See offer details for customer and vehicle eligibility toward cap cost/down payment assistance.",
+            "SpecialDescription": "For well-qualified clients who meet the Military Appreciation Offer criteria, subject to approval by HFS. Only one $500 Honda Military Appreciation offer per vehicle. $500 towards Cap Cost Reduction or Down Payment Assistance with the lease or purchase of a new and not previously reported sold Honda vehicle. Offer cannot be combined with Zero Due at Signing Lease Program. Offer applies to Active Duty U.S. Military and Ready Reserve and their spouses; eligible U.S. Military Veterans within two years of their separation from active service and their spouses; eligible U.S. Military Retirees; spouses of U.S. Military Retirees and Gold Star family members. Offer valid through 3/31/2027 and may be terminated at any time. NOTE: During the term of the retail installment finance contract or lease with Honda Financial Services, buyer may not take their vehicle outside the United States without prior written consent of Honda Financial Services. During the term of the retail installment finance contract or lease, buyer must notify Honda Financial Services immediately of any change in buyer address.",
+            "ShortDisclaimer": null,
+            "TermsAndConditions": "",
+            "ModelDriveTrain": null,
+            "AdditionalInfoUrl": "",
+            "BannerImageUrl": null,
+            "CutlineText": "",
+            "OfferAmount": 500.0,
+            "OfferType": null,
+            "OfferAttributes": [],
+            "AllowedStackableOffers": [
+              "a1hUT00000121STYAY",
+              "a1hUT00000121x7YAA",
+              "a1hUT000000xPtdYAE"
+            ],
+            "EShoppingCategory": "ML",
+            "FicoLowerBound": null,
+            "FicoUpperBound": null,
+            "FicoDisabled": null,
+            "SelectedFeaturedOffer": null,
+            "EShoppingNotFound": null,
+            "ModelShortName": null,
+            "ModelSeriesItemName": null,
+            "VehicleCategoryName": null
+          },
+          {
+            "Id": "a1hUT000000xPtdYAE-FE2F5SEW",
+            "eShoppingId": "a1hUT000000xPtdYAE",
+            "ahmSalesProgramId": "",
+            "SalesProgramName": "Honda College Graduate Bonus",
+            "SalesProgramType": "Conquest",
+            "SalesProgramTypeDescription": "Honda Graduate Offer",
+            "StartDate": "2026-04-01",
+            "EndDate": "2027-03-31",
+            "IsFeatured": true,
+            "IsUniversal": true,
+            "BusinessPriority": 3,
+            "ModelGroupName": "All Vehicles",
+            "ModelStockPhoto": "/-/media/Honda-Automobiles/Vehicles/2025/civic-sedan/AW/Thumb/thumb_CivicSedan_front_CIVIC4DSPORT_2025_CrystalBlackPearl_FE2F5SEW_NH-731P.jpg",
+            "ModelStockPhotoLarge": "/-/media/Honda-Automobiles/Vehicles/2025/civic-sedan/AW/Carshot/carshot_CivicSedan_front_CIVIC4DSPORT_2025_CrystalBlackPearl_FE2F5SEW_NH-731P.png",
+            "ResizedModelStockPhoto": null,
+            "ApplicableModelIds": [
+              "FE2F5SEW",
+              "FE4F8SJW",
+              "FE2F5TEW",
+              "FE4F8TKNW"
+            ],
+            "SpecialShortDescription": "If you are a recent or soon-to-be college graduate, we know that you are embarking on a new phase of your life, and that phase may include a new vehicle! To reward your hard work, Honda would like to offer you $500 toward any new and untitled 2025 or newer Honda automobile when you finance or lease with Honda Financial Services\u00ae (HFS).\n\nSee offer details for customer and vehicle eligibility toward cap cost/down payment assistance.",
+            "SpecialDescription": "For well-qualified clients who meet Honda Graduate Program criteria, subject to approval by HFS. Only one $500 Honda College Graduate Bonus per vehicle. $500 towards Cap Cost Reduction or Down Payment Assistance with the lease or purchase of a new and not previously reported sold Honda vehicle. Offer cannot be combined with Zero Due at Signing Lease Program. Offer applies to eligible college graduates who have graduated within the past two years or will graduate within the next six months with a master\u2019s, bachelor\u2019s or associate degree from a U.S.-accredited college or registered nursing school. Offer valid through 3/31/2027 and may be terminated at any time.",
+            "ShortDisclaimer": null,
+            "TermsAndConditions": "",
+            "ModelDriveTrain": null,
+            "AdditionalInfoUrl": "",
+            "BannerImageUrl": null,
+            "CutlineText": "",
+            "OfferAmount": 500.0,
+            "OfferType": null,
+            "OfferAttributes": [],
+            "AllowedStackableOffers": [
+              "a1hUT00000121STYAY",
+              "a1hUT00000121x7YAA",
+              "a1hUT000000xPbtYAE"
+            ],
+            "EShoppingCategory": "GD",
+            "FicoLowerBound": null,
+            "FicoUpperBound": null,
+            "FicoDisabled": null,
+            "SelectedFeaturedOffer": null,
+            "EShoppingNotFound": null,
+            "ModelShortName": null,
+            "ModelSeriesItemName": null,
+            "VehicleCategoryName": null
+          }
+        ]
+      },
+      "Accessories": null
     }
   }
 ]
