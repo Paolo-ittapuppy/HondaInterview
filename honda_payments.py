@@ -8,48 +8,23 @@ BASE_URL = "https://automobiles.honda.com/platform/api/v1/payments"
 
 MODELS = {
     "2026 Civic Sport Hybrid Sedan": "FE4F8TJW",
-    "2026 Ridgeline Sport":    "YK3F6TKNW",
+    # "CR-V":    "XXXXXXXX",
     # "Accord":  "XXXXXXXX",
 }
 
 SCENARIOS = [
     {
-        "label": "no down payment",
+        "label": "Standard (Good Credit, 15k miles/yr)",
         "zip": "90250",
         "leaseTerm": 36,
         "financeTerm": 60,
         "annualMileage": 15000,
-        "apr": 4.87,
-        "downPayment": 0,
+        "apr": 5.49,
+        "downPayment": 3740,
         "financeDownPayment": 0,
         "fico": 740,
         "financeFico": 740,
     },
-    {
-        "label": "with down payment",
-        "zip": "90250",
-        "leaseTerm": 36,
-        "financeTerm": 60,
-        "annualMileage": 15000,
-        "apr": 4.87,
-        "downPayment": 2500,
-        "financeDownPayment": 2500,
-        "fico": 740,
-        "financeFico": 740,
-    },
-    {
-        "label": "with bigger down payment",
-        "zip": "90250",
-        "leaseTerm": 36,
-        "financeTerm": 60,
-        "annualMileage": 15000,
-        "apr": 4.87,
-        "downPayment": 5000,
-        "financeDownPayment": 5000,
-        "fico": 740,
-        "financeFico": 740,
-    },
-
 ]
 
 
