@@ -24,7 +24,7 @@ SCENARIOS = [
         "financeFico": 740,
     },
     {
-        "label": "with down payment",
+        "label": "25000 down payment",
         "zip": "90250",
         "leaseTerm": 36,
         "financeTerm": 60,
@@ -36,17 +36,18 @@ SCENARIOS = [
         "financeFico": 740,
     },
     {
-        "label": "with bigger down payment",
+        "label": "9000 down payment",
         "zip": "90250",
         "leaseTerm": 36,
         "financeTerm": 60,
         "annualMileage": 15000,
         "apr": 4.87,
-        "downPayment": 5000,
-        "financeDownPayment": 5000,
+        "downPayment": 9000,
+        "financeDownPayment": 9000,
         "fico": 740,
         "financeFico": 740,
     },
+    
 ]
 
 
