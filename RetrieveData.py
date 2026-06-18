@@ -332,7 +332,7 @@ def main():
         fieldnames=list(yearly_rows[0].keys()) if yearly_rows else [],
     )
 
-    print("\nDone! Upload the 3 files in output/ to Claude to generate your dashboard.")
+    print("\nDone!")
 
 
 if __name__ == "__main__":
