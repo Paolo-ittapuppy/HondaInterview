@@ -1,5 +1,4 @@
 from curl_cffi import requests as cf_requests
-import json
 import time
 import csv
 import os
@@ -8,8 +7,7 @@ BASE_URL = "https://automobiles.honda.com/platform/api/v1/payments"
 
 MODELS = {
     "2026 Civic Sport Hybrid Sedan": "FE4F8TJW",
-    "2026 Ridgeline Sport":    "YK3F6TKNW",
-    # "Accord":  "XXXXXXXX",
+    "2026 Ridgeline Sport": "YK3F6TKNW",
 }
 
 SCENARIOS = [
@@ -49,7 +47,6 @@ SCENARIOS = [
         "fico": 740,
         "financeFico": 740,
     },
-
 ]
 
 
@@ -87,24 +84,52 @@ def fetch_payments(session, model_name, model_id, scenario):
         return None
 
 
-def find_residual(msrp, down_payment, acquisition_fee, money_factor, preTax_monthly_payment, term):
-    adjusted_cap_cost = msrp - down_payment + acquisition_fee
-    residual = (preTax_monthly_payment - adjusted_cap_cost / term - adjusted_cap_cost * money_factor) / (money_factor - 1 / term)
+def find_residual(msrp, acquisition_fee, money_factor, zero_down_pretax_monthly, term):
+    """
+    Back-calculate residual using zero-down pre-tax monthly and gross cap cost.
+    Residual is a property of the car — it must not be influenced by down payment.
+    gross_cap_cost = MSRP + acq fee (no down payment subtracted)
+    """
+    gross_cap_cost = msrp + acquisition_fee
+    residual = (zero_down_pretax_monthly - gross_cap_cost / term - gross_cap_cost * money_factor) / (money_factor - 1 / term)
     return round(residual, 2)
 
 
-def estimate_lease2(msrp, lease_row, residual_pct, taxrate, msrp_inflation=0.04, term=36):
+def get_anchor(session, model_name, model_id):
+    """
+    Fetch zero-down data for this model to get the clean pre-tax monthly,
+    which is used to back-calculate the true residual value.
+    The residual is a car property and must not vary by down payment scenario.
+    """
+    base = SCENARIOS[0]
+    anchor_scenario = {**base, "downPayment": 0, "financeDownPayment": 0}
+    data = fetch_payments(session, model_name, model_id, anchor_scenario)
+    if not data:
+        return None, None
+
+    lease_raw = data.get("LeaseResults", {}).get("NoLeaseSpecial") or {}
+    msrp = data.get("Vehicle", {}).get("MSRP", 0)
+    acq = lease_raw.get("AcquisitionFee", 595.00)
+    mf = lease_raw.get("MoneyFactor", 0)
+    pre_tax = lease_raw.get("PreTaxMonthlyPayment", 0)
+    term = lease_raw.get("Term", 36)
+
+    residual = find_residual(msrp, acq, mf, pre_tax, term)
+    residual_pct = round(residual / msrp, 4) if msrp else 0
+
+    print(f"  Anchor residual for {model_name}: ${residual:,.2f} ({residual_pct * 100:.2f}% of MSRP)")
+    return residual, residual_pct
+
+
+def estimate_lease2(msrp, acquisition_fee, money_factor, residual_pct, taxrate, msrp_inflation=0.04, term=36):
     future_msrp = msrp * (1 + msrp_inflation) ** (term / 12)
-    future_down = lease_row["DownPayment"]
-    future_acq = lease_row["AcquisitionFee"]
-    future_cap_cost = future_msrp - future_down + future_acq
+    future_cap_cost = future_msrp + acquisition_fee  # no down payment — matches find_residual logic
     future_residual = future_msrp * residual_pct
-    mf = lease_row["MoneyFactor"]
     depreciation = (future_cap_cost - future_residual) / term
-    finance_fee = (future_cap_cost + future_residual) * mf
+    finance_fee = (future_cap_cost + future_residual) * money_factor
     base_payment = depreciation + finance_fee
     monthly = round(base_payment * (1 + taxrate / 100), 2)
-    signing = round(monthly + future_down + future_acq, 2)
+    signing = round(monthly + acquisition_fee, 2)  # just first month + acq fee, no down
     return {
         "FutureMSRP": round(future_msrp, 2),
         "FutureResidual": round(future_residual, 2),
@@ -142,7 +167,7 @@ def build_yearly_schedule(lease1_monthly, lease1_signing, lease2_monthly, lease2
     return rows
 
 
-def process(data, scenario, model_name, anchor_residual_pct=None):
+def process(data, scenario, model_name, anchor_residual, anchor_residual_pct):
     lease_raw = data.get("LeaseResults", {}).get("NoLeaseSpecial") or {}
     fin_raw = data.get("FinanceResults", {}).get("NoFinanceSpecial") or {}
     msrp = data.get("Vehicle", {}).get("MSRP", 0)
@@ -154,16 +179,12 @@ def process(data, scenario, model_name, anchor_residual_pct=None):
     pre_tax = lease_raw.get("PreTaxMonthlyPayment", 0)
     term = lease_raw.get("Term", 36)
 
-    # Back-calc residual for display, but pin to anchor % for lease 2 projection
-    residual = find_residual(msrp, down, acq, mf, pre_tax, term)
-    residual_pct = round(anchor_residual_pct if anchor_residual_pct is not None else residual / msrp, 4)
+    # Use the anchored residual (back-calculated from zero-down pre-tax monthly)
+    # so it stays consistent across all down payment scenarios
+    residual = anchor_residual
+    residual_pct = anchor_residual_pct
 
-    lease_row = {
-        "DownPayment": down,
-        "AcquisitionFee": acq,
-        "MoneyFactor": mf,
-    }
-    lease2 = estimate_lease2(msrp, lease_row, residual_pct, tax_rate)
+    lease2 = estimate_lease2(msrp, acq, mf, residual_pct, tax_rate)
 
     lease1_monthly = lease_raw.get("MonthlyPayment", 0)
     lease1_signing = lease_raw.get("TotalDueAtSigning", 0)
@@ -186,7 +207,6 @@ def process(data, scenario, model_name, anchor_residual_pct=None):
         "TaxRate": tax_rate,
         "ResidualValue": residual,
         "ResidualPct": residual_pct,
-        # Lease 1
         "L1_MonthlyPayment": lease1_monthly,
         "L1_PreTaxMonthly": pre_tax,
         "L1_TotalDueAtSigning": lease1_signing,
@@ -199,13 +219,11 @@ def process(data, scenario, model_name, anchor_residual_pct=None):
         "L1_MonthlySalesTax": lease_raw.get("MonthlySalesTax", 0),
         "L1_UpfrontSalesTax": lease_raw.get("UpfrontSalesTax", 0),
         "L1_3YrTotal": l1_total,
-        # Lease 2 (projected)
         "L2_FutureMSRP": lease2["FutureMSRP"],
         "L2_FutureResidual": lease2["FutureResidual"],
         "L2_MonthlyPayment": lease2["MonthlyPayment"],
         "L2_TotalDueAtSigning": lease2["TotalDueAtSigning"],
         "L2_3YrTotal": l2_total,
-        # 6yr totals
         "Lease_6YrTotal": lease_6yr,
     }
 
@@ -241,42 +259,6 @@ def write_csv(filename, rows, fieldnames):
     print(f"  Saved {filename} ({len(rows)} rows)")
 
 
-def get_anchor_residual_pct(session, model_name, model_id):
-    """
-    Fetch the residual % for this model using the zero-down scenario (no cap cost
-    reduction from a down payment), so the back-calculated residual is cleanest.
-    This single % is then pinned across all scenarios for the model.
-    """
-    anchor_scenario = {
-        "zip": SCENARIOS[0]["zip"],
-        "leaseTerm": SCENARIOS[0]["leaseTerm"],
-        "financeTerm": SCENARIOS[0]["financeTerm"],
-        "annualMileage": SCENARIOS[0]["annualMileage"],
-        "apr": SCENARIOS[0]["apr"],
-        "downPayment": 0,           # zero down = cleanest residual back-calc
-        "financeDownPayment": 0,
-        "fico": SCENARIOS[0]["fico"],
-        "financeFico": SCENARIOS[0]["financeFico"],
-    }
-    data = fetch_payments(session, model_name, model_id, anchor_scenario)
-    if not data:
-        print(f"  WARNING: Could not fetch anchor residual for {model_name}, will fall back to per-scenario calc.")
-        return None
-
-    lease_raw = data.get("LeaseResults", {}).get("NoLeaseSpecial") or {}
-    msrp = data.get("Vehicle", {}).get("MSRP", 0)
-    down = 0
-    acq = lease_raw.get("AcquisitionFee", 595.00)
-    mf = lease_raw.get("MoneyFactor", 0)
-    pre_tax = lease_raw.get("PreTaxMonthlyPayment", 0)
-    term = lease_raw.get("Term", 36)
-
-    residual = find_residual(msrp, down, acq, mf, pre_tax, term)
-    residual_pct = round(residual / msrp, 4) if msrp else 0
-    print(f"  Anchor residual for {model_name}: ${residual:,.2f} ({residual_pct * 100:.2f}% of MSRP)")
-    return residual_pct
-
-
 def main():
     session = get_session()
     lease_rows = []
@@ -284,9 +266,11 @@ def main():
     yearly_rows = []
 
     for model_name, model_id in MODELS.items():
-        # Fetch one clean residual % per model, pinned at zero down payment
         print(f"\nFetching anchor residual for {model_name}...")
-        anchor_residual_pct = get_anchor_residual_pct(session, model_name, model_id)
+        anchor_residual, anchor_residual_pct = get_anchor(session, model_name, model_id)
+        if anchor_residual is None:
+            print(f"  Skipping {model_name} — could not determine residual.")
+            continue
         time.sleep(0.5)
 
         for scenario in SCENARIOS:
@@ -296,11 +280,10 @@ def main():
                 print("  Skipping — no data returned.")
                 continue
 
-            lease_row, finance_row, yearly = process(data, scenario, model_name, anchor_residual_pct)
+            lease_row, finance_row, yearly = process(data, scenario, model_name, anchor_residual, anchor_residual_pct)
             lease_rows.append(lease_row)
             finance_rows.append(finance_row)
 
-            # Tag each yearly row with model + scenario for the dashboard
             for r in yearly:
                 r["Model"] = model_name
                 r["Scenario"] = scenario["label"]
@@ -316,23 +299,11 @@ def main():
 
     os.makedirs("output", exist_ok=True)
 
-    write_csv(
-        "output/lease_data.csv",
-        lease_rows,
-        fieldnames=list(lease_rows[0].keys()) if lease_rows else [],
-    )
-    write_csv(
-        "output/finance_data.csv",
-        finance_rows,
-        fieldnames=list(finance_rows[0].keys()) if finance_rows else [],
-    )
-    write_csv(
-        "output/yearly_schedule.csv",
-        yearly_rows,
-        fieldnames=list(yearly_rows[0].keys()) if yearly_rows else [],
-    )
+    write_csv("output/lease_data.csv", lease_rows, fieldnames=list(lease_rows[0].keys()) if lease_rows else [])
+    write_csv("output/finance_data.csv", finance_rows, fieldnames=list(finance_rows[0].keys()) if finance_rows else [])
+    write_csv("output/yearly_schedule.csv", yearly_rows, fieldnames=list(yearly_rows[0].keys()) if yearly_rows else [])
 
-    print("\nDone! Upload the 3 files in output/ to Claude to generate your dashboard.")
+    print("\nDone!")
 
 
 if __name__ == "__main__":
