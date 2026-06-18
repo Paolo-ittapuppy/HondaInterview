@@ -8,15 +8,15 @@ Year,Month,LeaseMonthly,LeaseCumulative,FinanceMonthly,FinanceCumulative,Differe
 1,12,356.14,7987.32,588.84,9566.08,-1578.76,2026 Civic Sport Hybrid Sedan,with down payment
 2,24,356.14,12261.0,588.84,16632.16,-4371.16,2026 Civic Sport Hybrid Sedan,with down payment
 3,36,356.14,16534.68,588.84,23698.24,-7163.56,2026 Civic Sport Hybrid Sedan,with down payment
-4,48,315.8,23735.08,588.84,30764.32,-7029.24,2026 Civic Sport Hybrid Sedan,with down payment
-5,60,315.8,27524.68,588.84,37830.4,-10305.72,2026 Civic Sport Hybrid Sedan,with down payment
-6,72,315.8,31314.28,0,37830.4,-6516.12,2026 Civic Sport Hybrid Sedan,with down payment
+4,48,408.74,24943.3,588.84,30764.32,-5821.02,2026 Civic Sport Hybrid Sedan,with down payment
+5,60,408.74,29848.18,588.84,37830.4,-7982.22,2026 Civic Sport Hybrid Sedan,with down payment
+6,72,408.74,34753.06,0,37830.4,-3077.34,2026 Civic Sport Hybrid Sedan,with down payment
 1,12,273.53,9675.88,541.81,11501.72,-1825.84,2026 Civic Sport Hybrid Sedan,with bigger down payment
 2,24,273.53,12958.24,541.81,18003.44,-5045.2,2026 Civic Sport Hybrid Sedan,with bigger down payment
 3,36,273.53,16240.6,541.81,24505.16,-8264.56,2026 Civic Sport Hybrid Sedan,with bigger down payment
-4,48,140.51,23662.23,541.81,31006.88,-7344.65,2026 Civic Sport Hybrid Sedan,with bigger down payment
-5,60,140.51,25348.35,541.81,37508.6,-12160.25,2026 Civic Sport Hybrid Sedan,with bigger down payment
-6,72,140.51,27034.47,0,37508.6,-10474.13,2026 Civic Sport Hybrid Sedan,with bigger down payment
+4,48,326.4,26078.8,541.81,31006.88,-4928.08,2026 Civic Sport Hybrid Sedan,with bigger down payment
+5,60,326.4,29995.6,541.81,37508.6,-7513.0,2026 Civic Sport Hybrid Sedan,with bigger down payment
+6,72,326.4,33912.4,0,37508.6,-3596.2,2026 Civic Sport Hybrid Sedan,with bigger down payment
 1,12,696.91,9654.83,987.17,11846.04,-2191.21,2026 Ridgeline Sport,no down payment
 2,24,696.91,18017.75,987.17,23692.08,-5674.33,2026 Ridgeline Sport,no down payment
 3,36,696.91,26380.67,987.17,35538.12,-9157.45,2026 Ridgeline Sport,no down payment
@@ -26,12 +26,12 @@ Year,Month,LeaseMonthly,LeaseCumulative,FinanceMonthly,FinanceCumulative,Differe
 1,12,615.99,11365.36,940.14,13781.68,-2416.32,2026 Ridgeline Sport,with down payment
 2,24,615.99,18757.24,940.14,25063.36,-6306.12,2026 Ridgeline Sport,with down payment
 3,36,615.99,26149.12,940.14,36345.04,-10195.92,2026 Ridgeline Sport,with down payment
-4,48,609.78,37171.26,940.14,47626.72,-10455.46,2026 Ridgeline Sport,with down payment
-5,60,609.78,44488.62,940.14,58908.4,-14419.78,2026 Ridgeline Sport,with down payment
-6,72,609.78,51805.98,0,58908.4,-7102.42,2026 Ridgeline Sport,with down payment
+4,48,700.95,38356.47,940.14,47626.72,-9270.25,2026 Ridgeline Sport,with down payment
+5,60,700.95,46767.87,940.14,58908.4,-12140.53,2026 Ridgeline Sport,with down payment
+6,72,700.95,55179.27,0,58908.4,-3729.13,2026 Ridgeline Sport,with down payment
 1,12,535.04,13075.52,893.11,15717.32,-2641.8,2026 Ridgeline Sport,with bigger down payment
 2,24,535.04,19496.0,893.11,26434.64,-6938.64,2026 Ridgeline Sport,with bigger down payment
 3,36,535.04,25916.48,893.11,37151.96,-11235.48,2026 Ridgeline Sport,with bigger down payment
-4,48,438.1,37206.78,893.11,47869.28,-10662.5,2026 Ridgeline Sport,with bigger down payment
-5,60,438.1,42463.98,893.11,58586.6,-16122.62,2026 Ridgeline Sport,with bigger down payment
-6,72,438.1,47721.18,0,58586.6,-10865.42,2026 Ridgeline Sport,with bigger down payment
+4,48,620.29,39575.25,893.11,47869.28,-8294.03,2026 Ridgeline Sport,with bigger down payment
+5,60,620.29,47018.73,893.11,58586.6,-11567.87,2026 Ridgeline Sport,with bigger down payment
+6,72,620.29,54462.21,0,58586.6,-4124.39,2026 Ridgeline Sport,with bigger down payment

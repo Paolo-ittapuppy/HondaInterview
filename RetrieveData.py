@@ -88,7 +88,7 @@ def fetch_payments(session, model_name, model_id, scenario):
 
 
 def find_residual(msrp, down_payment, acquisition_fee, money_factor, preTax_monthly_payment, term):
-    adjusted_cap_cost = msrp + acquisition_fee
+    adjusted_cap_cost = msrp - down_payment + acquisition_fee
     residual = (preTax_monthly_payment - adjusted_cap_cost / term - adjusted_cap_cost * money_factor) / (money_factor - 1 / term)
     return round(residual, 2)
 
@@ -284,6 +284,10 @@ def main():
     yearly_rows = []
 
     for model_name, model_id in MODELS.items():
+        # Fetch one clean residual % per model, pinned at zero down payment
+        print(f"\nFetching anchor residual for {model_name}...")
+        anchor_residual_pct = get_anchor_residual_pct(session, model_name, model_id)
+        time.sleep(0.5)
 
         for scenario in SCENARIOS:
             print(f"\nFetching: {model_name} — {scenario['label']}...")
@@ -292,7 +296,7 @@ def main():
                 print("  Skipping — no data returned.")
                 continue
 
-            lease_row, finance_row, yearly = process(data, scenario, model_name, )
+            lease_row, finance_row, yearly = process(data, scenario, model_name, anchor_residual_pct)
             lease_rows.append(lease_row)
             finance_rows.append(finance_row)
 
@@ -328,7 +332,7 @@ def main():
         fieldnames=list(yearly_rows[0].keys()) if yearly_rows else [],
     )
 
-    print("\nDone!")
+    print("\nDone! Upload the 3 files in output/ to Claude to generate your dashboard.")
 
 
 if __name__ == "__main__":
