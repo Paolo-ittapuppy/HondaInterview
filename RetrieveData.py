@@ -20,7 +20,7 @@ SCENARIOS = [
         "financeTerm": 60,
         "annualMileage": 15000,
         "apr": 4.87,
-        "downPayment": 3740,
+        "downPayment": 0,
         "financeDownPayment": 0,
         "fico": 740,
         "financeFico": 740,
@@ -290,7 +290,7 @@ def main():
         fieldnames=list(yearly_rows[0].keys()) if yearly_rows else [],
     )
 
-    print("\nDone! Upload the 3 files in output/ to Claude to generate your dashboard.")
+    print("\nDone!")
 
 
 if __name__ == "__main__":
