@@ -144,6 +144,7 @@ def build_yearly_schedule(lease1_monthly, lease1_signing, lease2_monthly, lease2
 
 def process(data, scenario, model_name):
     lease_raw = data.get("LeaseResults", {}).get("NoLeaseSpecial") or {}
+    print(f"  Lease raw data: {lease_raw}")
     fin_raw = data.get("FinanceResults", {}).get("NoFinanceSpecial") or {}
     msrp = data.get("Vehicle", {}).get("MSRP", 0)
     tax_rate = data.get("FinanceResults", {}).get("SalesTax", {}).get("UpfrontTaxRate", 0)
