@@ -32,7 +32,7 @@ HondaInterview/
 ### Requirements
 
 ```bash
-pip install curl_cffi
+pip install curl_cffi matplotlib
 ```
 
 ### Add models and scenarios
