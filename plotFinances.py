@@ -128,38 +128,56 @@ for model in models:
     )
 
     # Figure 2: Lease cumulative — last 2 scenarios (mileage comparison)
-    # Also plots finance cumulative from scenario 4 as a reference line
-    fig, ax = plt.subplots(figsize=(7, 5), facecolor=BG)
+    fig, ax = plt.subplots(figsize=(9, 5), facecolor=BG)
     ax.set_facecolor(BG)
     fig.suptitle(f"Lease — Cumulative Spend by Mileage Tier\n{model}", fontsize=12, fontweight="600", color=TEXT)
 
-    offsets = [28, -28]
+    # Collect all final values so we can sort and stagger cleanly
+    lease_finals = []
     for i, scenario in enumerate(LEASE_SCENARIOS):
         rows = get_rows(model, scenario)
         if not rows:
             continue
         years = [int(r["Year"]) for r in rows]
         values = [r["LeaseCumulative"] for r in rows]
-        final = values[-1]
-        ax.plot(years, values, color=COLORS[i], linestyle=STYLES[i], linewidth=2,
-                marker="o", markersize=6, label=f"Lease · {scenario}  (${final:,.0f})")
-        ax.annotate(f"${final:,.0f}", xy=(years[-1], final),
-                    xytext=(8, offsets[i]), textcoords="offset points",
-                    fontsize=8.5, color=COLORS[i], va="center")
+        lease_finals.append((values[-1], i, scenario, years, values))
 
-    # Finance reference line — scenario 4 ($5k down, matches both mileage scenarios)
     fin_ref_scenario = all_scenarios[-1]
     fin_rows = get_rows(model, fin_ref_scenario)
-    if fin_rows:
-        fin_years = [int(r["Year"]) for r in fin_rows]
-        fin_values = [r["FinanceCumulative"] for r in fin_rows]
-        fin_final = fin_values[-1]
-        ax.plot(fin_years, fin_values, color=COLORS[2], linestyle="--", linewidth=1.5,
-                marker="s", markersize=5, label=f"Finance · $5k down (ref)  (${fin_final:,.0f})")
-        # Annotate at year 5 (when loan finishes) instead of year 6 to avoid overlap
-        ax.annotate(f"${fin_final:,.0f}", xy=(fin_years[-2], fin_values[-2]),
-                    xytext=(8, 10), textcoords="offset points",
-                    fontsize=8.5, color=COLORS[2], va="center")
+    fin_final = fin_rows[-1]["FinanceCumulative"] if fin_rows else None
+
+    # Sort all 3 final values to assign vertical offsets without overlap
+    all_finals = sorted(
+        [(v, "lease", i, s, y, vals) for v, i, s, y, vals in lease_finals] +
+        ([(fin_final, "finance", 2, fin_ref_scenario,
+           [int(r["Year"]) for r in fin_rows],
+           [r["FinanceCumulative"] for r in fin_rows])] if fin_rows else []),
+        key=lambda x: x[0]
+    )
+
+    # Assign y offsets: spread evenly so labels don't touch
+    n_lines = len(all_finals)
+    y_offsets = [-16, 0, 16] if n_lines == 3 else [-12, 12]
+
+    plotted = {}
+    for rank, (final, kind, idx, scenario, years, values) in enumerate(all_finals):
+        color = COLORS[idx]
+        if kind == "lease":
+            style = STYLES[idx]
+            lw = 2; ms = 6; marker = "o"
+            label = f"Lease · {scenario}  (${final:,.0f})"
+        else:
+            style = "--"; lw = 1.5; ms = 5; marker = "s"
+            label = f"Finance · $5k down (ref)  (${final:,.0f})"
+
+        ax.plot(years, values, color=color, linestyle=style, linewidth=lw,
+                marker=marker, markersize=ms, label=label)
+
+        ax.annotate(f"${final:,.0f}",
+                    xy=(years[-1], final),
+                    xytext=(10, y_offsets[rank]),
+                    textcoords="offset points",
+                    fontsize=8.5, color=color, va="center", fontweight="500")
 
     ax.axvline(x=5, color=MUTED, linewidth=0.8, linestyle="--", alpha=0.5)
     ax.text(5.05, ax.get_ylim()[0], "loan done", fontsize=7.5, color=MUTED, va="bottom")
@@ -167,7 +185,7 @@ for model in models:
     ax.set_ylabel("Cumulative Spend ($)", fontsize=10, color=MUTED)
     ax.set_xticks(range(1, 7))
     ax.set_xticklabels([f"Yr {y}" for y in range(1, 7)])
-    ax.set_xlim(0.5, 7.5)
+    ax.set_xlim(0.5, 7.8)
     ax.tick_params(colors=MUTED, labelsize=9)
     ax.yaxis.set_major_formatter(mticker.FuncFormatter(lambda v, _: f"${v:,.0f}"))
     ax.grid(axis="y", color=GRID, linewidth=0.8)
