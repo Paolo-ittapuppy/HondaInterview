@@ -9,7 +9,7 @@ MODELS = {
     "2026 Civic Sport Hybrid Sedan": "FE4F8TJW",
     "2026 Ridgeline Sport": "YK3F6TKNW",
 }
-
+COLORS = ["#378ADD", "#1D9E75", "#E07B39"]
 SCENARIOS = [
     {
         "label": "no down payment",

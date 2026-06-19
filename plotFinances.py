@@ -46,9 +46,23 @@ FINANCE_SCENARIOS = all_scenarios[:3]
 # Last 2 scenarios → lease mileage comparison
 LEASE_SCENARIOS = all_scenarios[-2:]
 
-COLORS = ["#378ADD", "#1D9E75", "#E07B39"]
+LEASE_LABELS = [
+    "Lease · 15k mi/yr, $5k down",
+    "Lease · 10k mi/yr, $5k down",
+]
+FINANCE_LABEL = "Finance · $5k down (ref)"
+FINANCE_SCENARIO_LABELS = [
+    "$0 down",
+    "$2.5k down",
+    "$5k down",
+]
+FINANCE_SCENARIO_LABELS = [
+    "$0 down",
+    "$2.5k down",
+    "$5k down",
+]
 STYLES = ["-", "--", ":"]
-
+COLORS = ["#378ADD", "#1D9E75", "#E07B39"]
 BG    = "#F5F5F3"
 GRID  = "#E0DFD9"
 TEXT  = "#1A1A18"
@@ -81,7 +95,7 @@ def plot_figure(model, scenario_list, y_col, title_prefix, file_suffix, vline_la
         ax.plot(years, values,
                 color=COLORS[i], linestyle=STYLES[i], linewidth=2,
                 marker="o", markersize=6,
-                label=f"{scenario}  (total: ${final:,.0f})")
+                label=f"{FINANCE_SCENARIO_LABELS[i]}  (total: ${final:,.0f})")
 
         ax.annotate(f"${final:,.0f}",
                     xy=(years[-1], final),
@@ -148,30 +162,26 @@ for model in models:
 
     # Sort all 3 final values to assign vertical offsets without overlap
     all_finals = sorted(
-        [(v, "lease", i, s, y, vals) for v, i, s, y, vals in lease_finals] +
-        ([(fin_final, "finance", 2, fin_ref_scenario,
+        [(v, "lease", i, LEASE_LABELS[i], y, vals) for v, i, s, y, vals in lease_finals] +
+        ([(fin_final, "finance", 2, FINANCE_LABEL,
            [int(r["Year"]) for r in fin_rows],
            [r["FinanceCumulative"] for r in fin_rows])] if fin_rows else []),
         key=lambda x: x[0]
     )
 
-    # Assign y offsets: spread evenly so labels don't touch
     n_lines = len(all_finals)
     y_offsets = [-16, 0, 16] if n_lines == 3 else [-12, 12]
 
-    plotted = {}
-    for rank, (final, kind, idx, scenario, years, values) in enumerate(all_finals):
+    for rank, (final, kind, idx, label, years, values) in enumerate(all_finals):
         color = COLORS[idx]
         if kind == "lease":
             style = STYLES[idx]
             lw = 2; ms = 6; marker = "o"
-            label = f"Lease · {scenario}  (${final:,.0f})"
         else:
             style = "--"; lw = 1.5; ms = 5; marker = "s"
-            label = f"Finance · $5k down (ref)  (${final:,.0f})"
 
         ax.plot(years, values, color=color, linestyle=style, linewidth=lw,
-                marker=marker, markersize=ms, label=label)
+                marker=marker, markersize=ms, label=f"{label}  (${final:,.0f})")
 
         ax.annotate(f"${final:,.0f}",
                     xy=(years[-1], final),
