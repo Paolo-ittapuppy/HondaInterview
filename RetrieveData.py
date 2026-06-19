@@ -141,13 +141,13 @@ def get_anchor(session, model_name, model_id, annual_mileage):
 
 def estimate_lease2(msrp, down_payment, acquisition_fee, money_factor, residual_pct, taxrate, msrp_inflation=0.04, term=36):
     future_msrp = msrp * (1 + msrp_inflation) ** (term / 12)
-    future_cap_cost = future_msrp - down_payment + acquisition_fee
+    future_cap_cost = future_msrp + acquisition_fee
     future_residual = future_msrp * residual_pct
     depreciation = (future_cap_cost - future_residual) / term
     finance_fee = (future_cap_cost + future_residual) * money_factor
     base_payment = depreciation + finance_fee
     monthly = round(base_payment * (1 + taxrate / 100), 2)
-    signing = round(monthly + down_payment + acquisition_fee, 2)
+    signing = round(monthly + acquisition_fee, 2)
     return {
         "FutureMSRP": round(future_msrp, 2),
         "FutureResidual": round(future_residual, 2),

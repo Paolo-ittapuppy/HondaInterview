@@ -1,14 +1,12 @@
 """
 plot_finance_scenarios.py
 
-Reads output/yearly_schedule.csv and plots finance cumulative spend over 6 years
-for each scenario, one graph per car model.
+Produces two figures per car model:
+  1. Finance cumulative spend — first 3 scenarios (down payment comparison)
+  2. Lease cumulative spend  — last 2 scenarios (mileage comparison)
 
 Usage:
     python plot_finance_scenarios.py
-
-Output:
-    output/finance_scenarios.png
 """
 
 import csv
@@ -38,52 +36,62 @@ def load_csv(path):
 BASE = os.path.join(os.path.dirname(__file__), "output")
 schedule = load_csv(os.path.join(BASE, "yearly_schedule.csv"))
 
-# ── Organise ──────────────────────────────────────────────────────────────────
+# ── Config ────────────────────────────────────────────────────────────────────
 
-models    = list(dict.fromkeys(r["Model"]    for r in schedule))
-scenarios = list(dict.fromkeys(r["Scenario"] for r in schedule))
+models = list(dict.fromkeys(r["Model"] for r in schedule))
+all_scenarios = list(dict.fromkeys(r["Scenario"] for r in schedule))
+
+# First 3 scenarios → finance comparison
+FINANCE_SCENARIOS = all_scenarios[:3]
+# Last 2 scenarios → lease mileage comparison
+LEASE_SCENARIOS = all_scenarios[-2:]
 
 COLORS = ["#378ADD", "#1D9E75", "#E07B39"]
 STYLES = ["-", "--", ":"]
 
-# ── Plot ──────────────────────────────────────────────────────────────────────
-
-BG   = "#F5F5F3"
-GRID = "#E0DFD9"
-TEXT = "#1A1A18"
+BG    = "#F5F5F3"
+GRID  = "#E0DFD9"
+TEXT  = "#1A1A18"
 MUTED = "#6B6B67"
 
-for model in models:
+# ── Helpers ───────────────────────────────────────────────────────────────────
+
+def get_rows(model, scenario):
+    return sorted(
+        [r for r in schedule if r["Model"] == model and r["Scenario"] == scenario],
+        key=lambda r: r["Year"]
+    )
+
+def plot_figure(model, scenario_list, y_col, title_prefix, file_suffix, vline_label=None, vline_x=None):
     fig, ax = plt.subplots(figsize=(7, 5), facecolor=BG)
     ax.set_facecolor(BG)
+    fig.suptitle(f"{title_prefix}\n{model}", fontsize=12, fontweight="600", color=TEXT)
 
-    fig.suptitle(f"Finance — Cumulative Spend by Down Payment Scenario\n{model}",
-                 fontsize=12, fontweight="600", color=TEXT)
+    n = len(scenario_list)
+    offsets = [18, 0, -18][:n]
 
-    for i, scenario in enumerate(scenarios):
-        rows = sorted(
-            [r for r in schedule if r["Model"] == model and r["Scenario"] == scenario],
-            key=lambda r: r["Year"]
-        )
+    for i, scenario in enumerate(scenario_list):
+        rows = get_rows(model, scenario)
+        if not rows:
+            continue
         years = [int(r["Year"]) for r in rows]
-        cumulative = [r["FinanceCumulative"] for r in rows]
-        final_total = cumulative[-1]
+        values = [r[y_col] for r in rows]
+        final = values[-1]
 
-        ax.plot(years, cumulative,
+        ax.plot(years, values,
                 color=COLORS[i], linestyle=STYLES[i], linewidth=2,
                 marker="o", markersize=6,
-                label=f"{scenario}  (total: ${final_total:,.0f})")
+                label=f"{scenario}  (total: ${final:,.0f})")
 
-        offsets = [18, 0, -18]
-        ax.annotate(f"${final_total:,.0f}",
-                    xy=(years[-1], final_total),
+        ax.annotate(f"${final:,.0f}",
+                    xy=(years[-1], final),
                     xytext=(8, offsets[i]), textcoords="offset points",
                     fontsize=8.5, color=COLORS[i], va="center")
 
-    # Mark loan payoff at year 5
-    ax.axvline(x=5, color=MUTED, linewidth=0.8, linestyle="--", alpha=0.5)
-    ymin = ax.get_ylim()[0]
-    ax.text(5.05, ymin, "loan done", fontsize=7.5, color=MUTED, va="bottom")
+    if vline_x:
+        ax.axvline(x=vline_x, color=MUTED, linewidth=0.8, linestyle="--", alpha=0.5)
+        ax.text(vline_x + 0.05, ax.get_ylim()[0], vline_label or "",
+                fontsize=7.5, color=MUTED, va="bottom")
 
     ax.set_xlabel("Year", fontsize=10, color=MUTED)
     ax.set_ylabel("Cumulative Spend ($)", fontsize=10, color=MUTED)
@@ -98,8 +106,32 @@ for model in models:
     ax.legend(fontsize=9, framealpha=0, labelcolor=MUTED, loc="upper left")
 
     safe_name = model.replace(" ", "_").replace("/", "_")
-    out_path = os.path.join(BASE, f"finance_scenarios_{safe_name}.png")
+    out_path = os.path.join(BASE, f"{file_suffix}_{safe_name}.png")
     plt.tight_layout()
     plt.savefig(out_path, dpi=150, bbox_inches="tight", facecolor=BG)
     print(f"Saved → {out_path}")
     plt.show()
+    plt.close()
+
+# ── Generate figures ──────────────────────────────────────────────────────────
+
+for model in models:
+    # Figure 1: Finance cumulative — first 3 scenarios
+    plot_figure(
+        model=model,
+        scenario_list=FINANCE_SCENARIOS,
+        y_col="FinanceCumulative",
+        title_prefix="Finance — Cumulative Spend by Down Payment",
+        file_suffix="finance_scenarios",
+        vline_x=5,
+        vline_label="loan done",
+    )
+
+    # Figure 2: Lease cumulative — last 2 scenarios (mileage comparison)
+    plot_figure(
+        model=model,
+        scenario_list=LEASE_SCENARIOS,
+        y_col="LeaseCumulative",
+        title_prefix="Lease — Cumulative Spend by Mileage Tier",
+        file_suffix="lease_mileage",
+    )
