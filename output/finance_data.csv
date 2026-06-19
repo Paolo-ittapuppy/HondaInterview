@@ -2,8 +2,8 @@ Model,Scenario,MSRP,TaxRate,F_MonthlyPayment,F_TotalDueAtSigning,F_AmountFinance
 2026 Civic Sport Hybrid Sedan,no down payment,29395.0,10.5,635.87,0.0,33801.95,60,4.87,38152.2,11758.0,26394.2
 2026 Civic Sport Hybrid Sedan,with down payment,29395.0,10.5,588.84,2500.0,31301.95,60,4.87,37830.4,11758.0,26072.4
 2026 Civic Sport Hybrid Sedan,with bigger down payment,29395.0,10.5,541.81,5000.0,28801.95,60,4.87,37508.6,11758.0,25750.6
-2026 Civic Sport Hybrid Sedan,"1000 annual miles, with 5k down payment",29395.0,10.5,588.84,2500.0,31301.95,60,4.87,37830.4,11758.0,26072.4
+2026 Civic Sport Hybrid Sedan,"1000 annual miles, with 5k down payment",29395.0,10.5,541.81,5000.0,28801.95,60,4.87,37508.6,11758.0,25750.6
 2026 Ridgeline Sport,no down payment,45995.0,10.5,987.17,0.0,52476.45,60,4.87,59230.2,18398.0,40832.2
 2026 Ridgeline Sport,with down payment,45995.0,10.5,940.14,2500.0,49976.45,60,4.87,58908.4,18398.0,40510.4
 2026 Ridgeline Sport,with bigger down payment,45995.0,10.5,893.11,5000.0,47476.45,60,4.87,58586.6,18398.0,40188.6
-2026 Ridgeline Sport,"1000 annual miles, with 5k down payment",45995.0,10.5,940.14,2500.0,49976.45,60,4.87,58908.4,18398.0,40510.4
+2026 Ridgeline Sport,"1000 annual miles, with 5k down payment",45995.0,10.5,893.11,5000.0,47476.45,60,4.87,58586.6,18398.0,40188.6
