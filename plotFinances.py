@@ -128,10 +128,57 @@ for model in models:
     )
 
     # Figure 2: Lease cumulative — last 2 scenarios (mileage comparison)
-    plot_figure(
-        model=model,
-        scenario_list=LEASE_SCENARIOS,
-        y_col="LeaseCumulative",
-        title_prefix="Lease — Cumulative Spend by Mileage Tier",
-        file_suffix="lease_mileage",
-    )
+    # Also plots finance cumulative from scenario 4 as a reference line
+    fig, ax = plt.subplots(figsize=(7, 5), facecolor=BG)
+    ax.set_facecolor(BG)
+    fig.suptitle(f"Lease — Cumulative Spend by Mileage Tier\n{model}", fontsize=12, fontweight="600", color=TEXT)
+
+    offsets = [28, -28]
+    for i, scenario in enumerate(LEASE_SCENARIOS):
+        rows = get_rows(model, scenario)
+        if not rows:
+            continue
+        years = [int(r["Year"]) for r in rows]
+        values = [r["LeaseCumulative"] for r in rows]
+        final = values[-1]
+        ax.plot(years, values, color=COLORS[i], linestyle=STYLES[i], linewidth=2,
+                marker="o", markersize=6, label=f"Lease · {scenario}  (${final:,.0f})")
+        ax.annotate(f"${final:,.0f}", xy=(years[-1], final),
+                    xytext=(8, offsets[i]), textcoords="offset points",
+                    fontsize=8.5, color=COLORS[i], va="center")
+
+    # Finance reference line — scenario 4 ($5k down, matches both mileage scenarios)
+    fin_ref_scenario = all_scenarios[-1]
+    fin_rows = get_rows(model, fin_ref_scenario)
+    if fin_rows:
+        fin_years = [int(r["Year"]) for r in fin_rows]
+        fin_values = [r["FinanceCumulative"] for r in fin_rows]
+        fin_final = fin_values[-1]
+        ax.plot(fin_years, fin_values, color=COLORS[2], linestyle="--", linewidth=1.5,
+                marker="s", markersize=5, label=f"Finance · $5k down (ref)  (${fin_final:,.0f})")
+        # Annotate at year 5 (when loan finishes) instead of year 6 to avoid overlap
+        ax.annotate(f"${fin_final:,.0f}", xy=(fin_years[-2], fin_values[-2]),
+                    xytext=(8, 10), textcoords="offset points",
+                    fontsize=8.5, color=COLORS[2], va="center")
+
+    ax.axvline(x=5, color=MUTED, linewidth=0.8, linestyle="--", alpha=0.5)
+    ax.text(5.05, ax.get_ylim()[0], "loan done", fontsize=7.5, color=MUTED, va="bottom")
+    ax.set_xlabel("Year", fontsize=10, color=MUTED)
+    ax.set_ylabel("Cumulative Spend ($)", fontsize=10, color=MUTED)
+    ax.set_xticks(range(1, 7))
+    ax.set_xticklabels([f"Yr {y}" for y in range(1, 7)])
+    ax.set_xlim(0.5, 7.5)
+    ax.tick_params(colors=MUTED, labelsize=9)
+    ax.yaxis.set_major_formatter(mticker.FuncFormatter(lambda v, _: f"${v:,.0f}"))
+    ax.grid(axis="y", color=GRID, linewidth=0.8)
+    ax.spines[["top", "right"]].set_visible(False)
+    ax.spines[["left", "bottom"]].set_color(GRID)
+    ax.legend(fontsize=9, framealpha=0, labelcolor=MUTED, loc="upper left")
+
+    safe_name = model.replace(" ", "_").replace("/", "_")
+    out_path = os.path.join(BASE, f"lease_mileage_{safe_name}.png")
+    plt.tight_layout()
+    plt.savefig(out_path, dpi=150, bbox_inches="tight", facecolor=BG)
+    print(f"Saved → {out_path}")
+    plt.show()
+    plt.close()
