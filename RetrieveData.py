@@ -24,7 +24,7 @@ SCENARIOS = [
         "financeFico": 740,
     },
     {
-        "label": "25000 down payment",
+        "label": "with down payment",
         "zip": "90250",
         "leaseTerm": 36,
         "financeTerm": 60,
@@ -36,18 +36,29 @@ SCENARIOS = [
         "financeFico": 740,
     },
     {
-        "label": "9000 down payment",
+        "label": "with bigger down payment",
         "zip": "90250",
         "leaseTerm": 36,
         "financeTerm": 60,
         "annualMileage": 15000,
         "apr": 4.87,
-        "downPayment": 9000,
-        "financeDownPayment": 9000,
+        "downPayment": 5000,
+        "financeDownPayment": 5000,
         "fico": 740,
         "financeFico": 740,
     },
-    
+    {
+        "label": "1000 annual miles, with 5k down payment",
+        "zip": "90250",
+        "leaseTerm": 36,
+        "financeTerm": 60,
+        "annualMileage": 10000,
+        "apr": 4.87,
+        "downPayment": 2500,
+        "financeDownPayment": 2500,
+        "fico": 740,
+        "financeFico": 740,
+    },
 ]
 
 
@@ -96,14 +107,20 @@ def find_residual(msrp, acquisition_fee, money_factor, zero_down_pretax_monthly,
     return round(residual, 2)
 
 
-def get_anchor(session, model_name, model_id):
+def get_anchor(session, model_name, model_id, annual_mileage):
     """
-    Fetch zero-down data for this model to get the clean pre-tax monthly,
-    which is used to back-calculate the true residual value.
-    The residual is a car property and must not vary by down payment scenario.
+    Fetch zero-down data for this model+mileage combo to get the clean pre-tax
+    monthly, which is used to back-calculate the true residual value.
+    Residual varies by mileage tier (higher mileage = lower residual).
+    Down payment is always 0 here so it doesn't pollute the back-calc.
     """
     base = SCENARIOS[0]
-    anchor_scenario = {**base, "downPayment": 0, "financeDownPayment": 0}
+    anchor_scenario = {
+        **base,
+        "annualMileage": annual_mileage,
+        "downPayment": 0,
+        "financeDownPayment": 0,
+    }
     data = fetch_payments(session, model_name, model_id, anchor_scenario)
     if not data:
         return None, None
@@ -118,19 +135,19 @@ def get_anchor(session, model_name, model_id):
     residual = find_residual(msrp, acq, mf, pre_tax, term)
     residual_pct = round(residual / msrp, 4) if msrp else 0
 
-    print(f"  Anchor residual for {model_name}: ${residual:,.2f} ({residual_pct * 100:.2f}% of MSRP)")
+    print(f"  Anchor residual for {model_name} @ {annual_mileage:,} mi/yr: ${residual:,.2f} ({residual_pct * 100:.2f}% of MSRP)")
     return residual, residual_pct
 
 
-def estimate_lease2(msrp, acquisition_fee, money_factor, residual_pct, taxrate, msrp_inflation=0.04, term=36):
+def estimate_lease2(msrp, down_payment, acquisition_fee, money_factor, residual_pct, taxrate, msrp_inflation=0.04, term=36):
     future_msrp = msrp * (1 + msrp_inflation) ** (term / 12)
-    future_cap_cost = future_msrp + acquisition_fee  # no down payment — matches find_residual logic
+    future_cap_cost = future_msrp - down_payment + acquisition_fee
     future_residual = future_msrp * residual_pct
     depreciation = (future_cap_cost - future_residual) / term
     finance_fee = (future_cap_cost + future_residual) * money_factor
     base_payment = depreciation + finance_fee
     monthly = round(base_payment * (1 + taxrate / 100), 2)
-    signing = round(monthly + acquisition_fee, 2)  # just first month + acq fee, no down
+    signing = round(monthly + down_payment + acquisition_fee, 2)
     return {
         "FutureMSRP": round(future_msrp, 2),
         "FutureResidual": round(future_residual, 2),
@@ -185,7 +202,7 @@ def process(data, scenario, model_name, anchor_residual, anchor_residual_pct):
     residual = anchor_residual
     residual_pct = anchor_residual_pct
 
-    lease2 = estimate_lease2(msrp, acq, mf, residual_pct, tax_rate)
+    lease2 = estimate_lease2(msrp, down, acq, mf, residual_pct, tax_rate)
 
     lease1_monthly = lease_raw.get("MonthlyPayment", 0)
     lease1_signing = lease_raw.get("TotalDueAtSigning", 0)
@@ -267,14 +284,27 @@ def main():
     yearly_rows = []
 
     for model_name, model_id in MODELS.items():
-        print(f"\nFetching anchor residual for {model_name}...")
-        anchor_residual, anchor_residual_pct = get_anchor(session, model_name, model_id)
-        if anchor_residual is None:
-            print(f"  Skipping {model_name} — could not determine residual.")
-            continue
-        time.sleep(0.5)
+        # Build one anchor residual per unique mileage tier for this model
+        unique_mileages = list(dict.fromkeys(s["annualMileage"] for s in SCENARIOS))
+        anchor_map = {}  # {mileage: (residual, residual_pct)}
+
+        for mileage in unique_mileages:
+            print(f"\nFetching anchor residual for {model_name} @ {mileage:,} mi/yr...")
+            residual, residual_pct = get_anchor(session, model_name, model_id, mileage)
+            if residual is None:
+                print(f"  WARNING: Could not fetch anchor for {model_name} @ {mileage:,} mi/yr — skipping this mileage tier.")
+                continue
+            anchor_map[mileage] = (residual, residual_pct)
+            time.sleep(0.5)
 
         for scenario in SCENARIOS:
+            mileage = scenario["annualMileage"]
+            if mileage not in anchor_map:
+                print(f"\nSkipping {model_name} — {scenario['label']}: no anchor residual for {mileage:,} mi/yr.")
+                continue
+
+            anchor_residual, anchor_residual_pct = anchor_map[mileage]
+
             print(f"\nFetching: {model_name} — {scenario['label']}...")
             data = fetch_payments(session, model_name, model_id, scenario)
             if not data:

@@ -204,6 +204,7 @@ function render() {
 
     <div class="grid4">
       <div class="metric"><div class="metric-label">MSRP</div><div class="metric-value">${$(L.MSRP)}</div></div>
+      <div class="metric"><div class="metric-label">Annual mileage</div><div class="metric-value">${(L.L1_AnnualMileage/1000).toFixed(0)}k mi/yr</div></div>
       <div class="metric"><div class="metric-label">Residual value</div><div class="metric-value">${$(L.ResidualValue)}</div><div class="metric-sub">${pct(L.ResidualPct)} of MSRP</div></div>
       <div class="metric"><div class="metric-label">Money factor</div><div class="metric-value">${L.L1_MoneyFactor.toFixed(5)}</div><div class="metric-sub">${leaseAPR}% APR equiv.</div></div>
       <div class="metric"><div class="metric-label">Finance APR</div><div class="metric-value">${F.F_APR}%</div><div class="metric-sub">${aprDiff > 0 ? '+' : ''}${aprDiff}% vs lease MF</div></div>
@@ -211,7 +212,7 @@ function render() {
 
     <div class="grid2">
       <div class="card">
-        <div class="card-title">Lease cycle 1 <span class="badge badge-blue">Months 1–36</span></div>
+        <div class="card-title">Leasing <span class="badge badge-blue">Months 1–36</span></div>
         <div class="row"><span class="row-label">Monthly payment</span><span class="row-val">${$2(L.L1_MonthlyPayment)}</span></div>
         <div class="row"><span class="row-label">Pre-tax monthly</span><span class="row-val">${$2(L.L1_PreTaxMonthly)}</span></div>
         <div class="row"><span class="row-label">Annual mileage</span><span class="row-val">${L.L1_AnnualMileage.toLocaleString()} mi</span></div>
